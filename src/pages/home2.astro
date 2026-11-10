@@ -1,0 +1,941 @@
+---
+// Home 2: green template. Layout modelled on the Overlake reference (utility bar, green hero with a
+// rounded media panel, cream sections, stats band, tabs, card sliders), built with Al Muna content.
+// ponytail: header, footer and styles live in this one file; split them out when a second page uses this template.
+import { menu, REGISTER_URL } from '../components/Nav.astro';
+
+const A = '/almuna/';
+const title = 'Al Muna International School | Dammam, Saudi Arabia';
+const desc =
+  'Al Muna International School, Dammam is a CBSE-affiliated school recognized by the Ministry of Education, KSA, providing a balanced, safe and realistic environment for young children to grow and learn.';
+const ext = (href) => (href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {});
+
+const utility = [
+  { label: 'Academic Calendar', href: '/academic-calendar/' },
+  { label: 'Results', href: '/results/' },
+  { label: 'Book List', href: '/book-list/' },
+  { label: 'Fee Structure', href: '/fee-structure/' },
+  { label: 'Admission', href: '/admission/' },
+  { label: 'Contact', href: '/contact-us/' },
+];
+
+const heroSlides = [
+  { img: 'g26-35.jpg', line: 'Moral, Modern, Mastery.' },
+  { img: 'life-2.jpg', line: 'Education that is not only received but also achieved.' },
+  { img: 'hero-3.jpg', line: 'Moulding children into wholesome personalities.' },
+  { img: 'gallery-21.webp', line: 'Academics, fine arts, sports and more, in equal measure.' },
+  { img: 'hero-2.jpg', line: 'World-class education in the heart of Dammam.' },
+];
+const marquee = ['Moral', 'Modern', 'Mastery', 'CBSE Affiliated', 'Established 2007', 'Dammam, Saudi Arabia', 'KG to Grade XII'];
+
+const stats = [
+  { n: '2007', label: 'Established', t: 'By the managing committee of TP Group of Institutions.' },
+  { n: '1:25', label: 'Teacher–student ratio', t: 'As per international standards, for personal attention and care.' },
+  { n: '7', label: 'Third languages', t: 'Urdu, Malayalam, Arabic, Tamil, Telugu, Marathi and Kannada.' },
+  { n: '40', label: 'School buses', t: 'The Muna Transport System: 5 own and 35 hired on contract.' },
+];
+
+const tabs = [
+  {
+    id: 'academics', label: 'Academics', img: 'contact-1.webp', title: 'Syllabus and Classes',
+    text: 'The school follows the CBSE syllabus with English as the medium of instruction, offering English, Hindi, Mathematics, Science/EVS, Social Science and Arabic, along with auxiliary subjects including Saudi History and Culture, Computer Science, General Knowledge and Islamic Studies/Moral Science.',
+    href: '/academics/', cta: 'Explore Academics',
+  },
+  {
+    id: 'co-scholastic', label: 'Co-Scholastic', img: 'life-3.jpg', title: 'All-round development',
+    text: 'Apart from the normal studies, the school also provides a number of co-scholastic activities for the all-round development of children, carried out through different programmes inside and outside the classrooms. Public speaking is introduced as early as KG through presentations given at the assembly, and monthly Zeal Training classes help improve self-confidence and mental ability.',
+    href: '/why-us/', cta: 'Why Al Muna',
+  },
+  {
+    id: 'admission', label: 'Admission', img: 'gallery-20.webp', title: 'Join Al Muna',
+    text: 'The children who meet the required age criteria for various classes are considered for admission after a successful written test and interview. Children seeking admission in LKG should complete 4 years, and for Class One 6 years, by April of the respective academic year. Only completed application forms with the required documents will be considered for admission.',
+    href: '/admission-process/', cta: 'Admission Process',
+  },
+];
+
+const facilities = [
+  { img: 'library.webp', kicker: 'Read', title: 'Library', text: 'Well equipped with a wide range of books and magazines, with a good collection of reference books for higher classes.' },
+  { img: 'science-lab.webp', kicker: 'Discover', title: 'Science and Maths Lab', text: 'Labs especially designed for the students to get a deep knowledge in the content subjects.' },
+  { img: 'computer-lab.webp', kicker: 'Create', title: 'Computer Lab', text: 'A fully equipped computer lab, where each student has an opportunity to do their practicals.' },
+  { img: 'life-3.jpg', kicker: 'Lead', title: 'Co-Scholastic Activities', text: 'Programmes inside and outside the classrooms for the all-round development of children.' },
+  { img: 'hero-4.jpg', kicker: 'Play', title: 'Sports and Assembly', text: 'Well planned facilities set apart for the physical well-being of the students.' },
+  { img: 'life-4.jpg', kicker: 'Gather', title: 'Auditorium', text: 'A spacious, multi-functional auditorium that serves as a venue for the activities and events of the school.' },
+];
+
+const values = [
+  'Academic excellence and integrity',
+  'Outstanding teaching and service',
+  'Scholarly research and professional leadership',
+  'Integration of teaching, research and service',
+  'Individual and collective excellence',
+  'Diversity, equity and social justice',
+  'Education of individuals across the life span',
+  'Collegiality and collaboration',
+  'A caring, supportive climate throughout the institution',
+];
+
+const paths = [
+  { img: 'life-2.jpg', title: 'Learn', text: 'CBSE syllabus in English, with a choice of seven third languages.', href: '/academics/' },
+  { img: 'gallery-24.webp', title: 'Experience', text: 'Assemblies, competitions, celebrations and school life in pictures.', href: '/gallery/' },
+  { img: 'life-1.jpg', title: 'Apply', text: 'Age criteria, required documents and how to register your child.', href: '/admission-process/' },
+];
+
+const circulars = [
+  { f: 'circular-048-parent-teacher-meeting.pdf', d: '21 Oct 2026', t: 'Parent–Teacher Meeting for Classes III–XII (BS & GS), Saturday, 24 October 2026, 4:00 pm to 7:30 pm' },
+  { f: 'circular-036-saudi-national-day-holidays.pdf', d: '22 Sep 2026', t: '96th Saudi National Day Holidays' },
+  { f: 'circular-031-resumption-of-regular-classes.pdf', d: '02 Sep 2026', t: 'Resumption of Regular Classes After Summer Vacation' },
+  { f: 'circular-015-eid-ul-azha-holidays.pdf', d: '22 May 2026', t: 'Eid ul Azha Holidays and Office Timing' },
+  { f: 'circular-120-ramadan-eid-ul-fitr-holidays.pdf', d: '11 Mar 2026', t: 'Ramadan & Eid-ul-Fitr Holidays and Schedule for March / Commencement of Academic Year 2026–27' },
+];
+
+const gallery = ['gallery-1.webp', 'gallery-7.webp', 'gallery-21.webp', 'hero-3.jpg', 'contact-2.webp', 'gallery-24.webp', 'g26-35.jpg'];
+
+const footerCols = [
+  { title: 'Quick Links', links: [['About Us', '/about-us/'], ['Admission', '/admission/'], ['Academics', '/academics/'], ['Gallery', '/gallery/'], ['Contact Us', '/contact-us/']] },
+  { title: 'Information', links: [['Fee Structure', '/fee-structure/'], ['Academic Calendar', '/academic-calendar/'], ['Mandatory Public Disclosure', '/mandatory-public-disclosure/'], ['Register Your Child', REGISTER_URL]] },
+];
+const MAP =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3572.735614668519!2d50.095368815034846!3d26.432007183336978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49fc8090c5007d%3A0xffca2829693c42e4!2sAl%20Muna%20International%20School%20for%20Boys!5e0!3m2!1sen!2sin!4v1680861261501!5m2!1sen!2sin';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={desc} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:image" content={`${A}hero-2.jpg`} />
+    <link rel="icon" href={`${A}favicon.png`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Besley:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <!-- utility bar -->
+    <div class="util">
+      <div class="wrap util__row">
+        {utility.map((u) => <a href={u.href}>{u.label}</a>)}
+        <a href={REGISTER_URL} target="_blank" rel="noopener">Register Your Child</a>
+      </div>
+    </div>
+
+    <!-- header -->
+    <header class="head">
+      <div class="wrap head__row">
+        <a href="/home2/" class="head__logo">
+          <img src={`${A}logo-white.png`} alt="Al Muna International School" width="892" height="240" />
+        </a>
+        <nav class="nav" aria-label="Main">
+          <ul>
+            {menu.map((item) => (
+              <li class:list={[item.children && 'has-sub']}>
+                <a href={item.href}>{item.label}</a>
+                {item.children && (
+                  <ul class="sub">
+                    {item.children.map((c) => (
+                      <li><a href={c.href} {...ext(c.href)}>{c.label}</a></li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <a class="pill pill--accent head__cta" href={REGISTER_URL} target="_blank" rel="noopener">Register</a>
+        <details class="burger">
+          <summary class="pill pill--accent">Menu</summary>
+          <nav class="burger__panel" aria-label="Mobile">
+            {menu.map((item) => (
+              <div class="burger__group">
+                <a class="burger__top" href={item.href}>{item.label}</a>
+                {item.children?.map((c) => <a href={c.href} {...ext(c.href)}>{c.label}</a>)}
+              </div>
+            ))}
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- hero -->
+      <section class="hero">
+        <div class="hero__pattern" aria-hidden="true"></div>
+        <span class="orb orb--rings" aria-hidden="true"></span>
+        <span class="orb orb--dots" aria-hidden="true"></span>
+        <div class="wrap hero__grid">
+          <div class="hero__text">
+            <h1 class="sr">Al Muna International School, Dammam</h1>
+            <p class="hero__lead">At Al Muna, we&rsquo;re all about</p>
+            <div class="hero__lines">
+              {heroSlides.map((s, i) => (
+                <p class:list={['hero__line', i === 0 && 'is-active']} data-slide={i}>
+                  {s.line.split(' ').map((w, j) => (
+                    <><span class="w" style={`--i:${j}`}>{w}</span>{' '}</>
+                  ))}
+                </p>
+              ))}
+            </div>
+            <div class="hero__actions">
+              <a class="pill pill--accent" href={REGISTER_URL} target="_blank" rel="noopener">Register Your Child</a>
+              <a class="pill pill--ghost" href="/about-us/">Meet Al Muna</a>
+            </div>
+            <div class="hero__dots" role="tablist" aria-label="Banner slides">
+              {heroSlides.map((s, i) => (
+                <button type="button" class:list={['hero__dot', i === 0 && 'is-active']} data-go={i} aria-label={`Slide ${i + 1}`}></button>
+              ))}
+            </div>
+          </div>
+
+          <div class="hero__art">
+            <div class="hero__arch">
+              {heroSlides.map((s, i) => (
+                <img class:list={['hero__img', i === 0 && 'is-active']} data-slide={i} src={`${A}${s.img}`} alt="" loading={i === 0 ? 'eager' : 'lazy'} />
+              ))}
+            </div>
+            <img class="hero__float hero__float--a" src={`${A}library.webp`} alt="" />
+            <img class="hero__float hero__float--b" src={`${A}life-3.jpg`} alt="" />
+            <div class="hero__badge" aria-hidden="true">
+              <svg viewBox="0 0 120 120">
+                <defs><path id="ring" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0" /></defs>
+                <text><textPath href="#ring">MORAL &#10022; MODERN &#10022; MASTERY &#10022; SINCE 2007 &#10022;</textPath></text>
+              </svg>
+              <strong>CBSE</strong>
+            </div>
+          </div>
+        </div>
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee__track">
+            {[0, 1].map(() => marquee.map((m) => <span>{m}</span>))}
+          </div>
+        </div>
+      </section>
+
+      <!-- about -->
+      <section class="sec about">
+        <div class="wrap">
+          <p class="eyebrow">About Al Muna</p>
+          <h2 class="display">A balanced, safe and realistic environment for young children to grow and learn.</h2>
+          <div class="about__panel">
+            <figure class="about__media">
+              <img src={`${A}hero-4.jpg`} alt="Students at the school sports courts" loading="lazy" />
+              <figcaption><strong>2007</strong> Serving Dammam since</figcaption>
+            </figure>
+            <div class="about__cols">
+              <div>
+                <h3 class="kicker">Our Mission</h3>
+                <p>
+                  The aim of Al Muna is to create an environment to ensure that education is not only received but also
+                  achieved. We stress the total development of each child: spiritually, morally, intellectually, socially,
+                  emotionally and physically.
+                </p>
+              </div>
+              <div>
+                <h3 class="kicker">Our Motto</h3>
+                <p>
+                  &ldquo;Moral, Modern, and Mastery&rdquo;. Affiliated to CBSE, New Delhi and recognized by the Ministry of
+                  Education, KSA, the school was established in 2007 to mould children into wholesome personalities.
+                </p>
+              </div>
+              <a class="pill pill--white" href="/about-us/">Meet Al Muna</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- stats -->
+      <section class="sec stats">
+        <div class="wrap stats__grid">
+          <figure class="stats__photo">
+            <img src={`${A}hero-3.jpg`} alt="Students gathered for assembly at Al Muna" loading="lazy" />
+            <figcaption>
+              <span>Affiliated to</span>
+              <strong>CBSE, New Delhi</strong>
+              <span>Recognized by the Ministry of Education, KSA</span>
+            </figcaption>
+          </figure>
+          <div class="stats__body">
+            <p class="eyebrow">Al Muna at a glance</p>
+            <h2 class="display display--sm">Our school, in numbers.</h2>
+            <dl class="stats__list">
+              {stats.map((s) => (
+                <div class="stat">
+                  <dt>{s.label}</dt>
+                  <dd>
+                    <strong data-count={/^\d+$/.test(s.n) ? s.n : undefined}>{s.n}</strong>
+                    <span>{s.t}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- principal -->
+      <section class="sec quote">
+        <div class="wrap quote__grid">
+          <img class="rounded quote__img" src={`${A}principal.jpg`} alt="Noufal P, Principal" loading="lazy" />
+          <div>
+            <p class="eyebrow">From the Principal</p>
+            <blockquote>
+              It is truly a close family experience for staff and children alike in Al Muna. Children get individual
+              attention, care and love. A hardworking, sincere and committed team of teachers is our specialty.
+            </blockquote>
+            <p class="quote__by"><strong>Noufal P</strong>, Principal</p>
+            <a class="pill pill--line" href="/about-us/">Principal&rsquo;s Message</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- tabs -->
+      <section class="sec tabs">
+        <div class="wrap">
+          <h2 class="display display--sm">Students find room to grow, learn and discover at Al Muna.</h2>
+          <div class="tabs__bar" role="tablist">
+            {tabs.map((t, i) => (
+              <button type="button" role="tab" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={i === 0 ? 'true' : 'false'} class="tabs__btn">
+                {t.label}
+              </button>
+            ))}
+            <span class="tabs__ind" aria-hidden="true"></span>
+          </div>
+          <div class="tabs__panels">
+            {tabs.map((t, i) => (
+              <div role="tabpanel" id={`panel-${t.id}`} aria-labelledby={`tab-${t.id}`} class:list={['tabs__panel', i === 0 && 'is-active']} inert={i !== 0}>
+                <div class="tabs__img"><img src={`${A}${t.img}`} alt="" loading="lazy" /></div>
+                <div class="tabs__copy">
+                  <h3>{t.title}</h3>
+                  <p>{t.text}</p>
+                  <a class="pill pill--green" href={t.href}>{t.cta}</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- facilities: expanding panels -->
+      <section class="sec exp-sec">
+        <div class="wrap">
+          <p class="eyebrow">Life at Al Muna</p>
+          <h2 class="display display--sm">Airy, sunny and spacious smart classrooms, labs, libraries and halls.</h2>
+          <div class="exp">
+            {facilities.map((f, i) => (
+              <button type="button" class:list={['exp__item', i === 0 && 'is-active']} aria-expanded={i === 0 ? 'true' : 'false'}>
+                <img src={`${A}${f.img}`} alt="" loading="lazy" />
+                <span class="exp__num">{String(i + 1).padStart(2, '0')}</span>
+                <span class="exp__label">{f.title}</span>
+                <span class="exp__body">
+                  <span class="exp__kicker">{f.kicker}</span>
+                  <strong>{f.title}</strong>
+                  <span class="exp__text">{f.text}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- values -->
+      <section class="values">
+        <div class="wrap values__grid">
+          <div>
+            <p class="eyebrow eyebrow--soft">Here&rsquo;s what makes us, us</p>
+            <h2 class="display display--sm">Mission, Vision &amp; Values</h2>
+            <p>
+              Our student-centered environment is safe, positive and nurturing, in which students&rsquo; diversity is
+              embraced and caring relationships are evident.
+            </p>
+            <a class="pill pill--accent" href="/mission-vision-values/">Read More</a>
+          </div>
+          <ol class="values__list">
+            {values.map((v) => <li>{v}</li>)}
+          </ol>
+        </div>
+      </section>
+
+      <!-- paths -->
+      <section class="sec paths">
+        <div class="wrap">
+          <h2 class="display display--sm">Chart a path through Al Muna.</h2>
+          <div class="paths__grid">
+            {paths.map((p) => (
+              <a class="path" href={p.href}>
+                <img src={`${A}${p.img}`} alt="" loading="lazy" />
+                <span class="path__body">
+                  <strong>{p.title}</strong>
+                  <span>{p.text}</span>
+                  <em>Learn More</em>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- circulars -->
+      <section class="sec news">
+        <div class="wrap">
+          <h2 class="display display--sm">Here&rsquo;s what&rsquo;s on the notice board at Al Muna:</h2>
+          <div class="news__list">
+            {circulars.map((c) => (
+              <a class="notice" href={`${A}docs/${c.f}`} target="_blank" rel="noopener">
+                <time>{c.d}</time>
+                <span>{c.t}</span>
+                <em>PDF</em>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- gallery: draggable reel -->
+      <section class="sec reel-sec">
+        <div class="wrap reel__head">
+          <div>
+            <p class="eyebrow">School life</p>
+            <h2 class="display display--sm">Moments from Al Muna.</h2>
+          </div>
+          <div class="reel__ctrl">
+            <span class="reel__count"><b>01</b> / {String(gallery.length).padStart(2, '0')}</span>
+            <button type="button" class="reel__btn" data-dir="-1" aria-label="Previous photo">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+            <button type="button" class="reel__btn" data-dir="1" aria-label="Next photo">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="reel" tabindex="0" aria-label="Photo gallery, drag or use the arrow buttons">
+          {gallery.map((g, i) => (
+            <figure class:list={['reel__item', `reel__item--${['tall', 'wide', 'mid'][i % 3]}`]}>
+              <img src={`${A}${g}`} alt="" loading="lazy" draggable="false" />
+              <figcaption>{String(i + 1).padStart(2, '0')}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <div class="wrap reel__foot">
+          <div class="reel__bar"><span></span></div>
+          <a class="pill pill--line" href="/gallery/">View Gallery</a>
+        </div>
+      </section>
+
+      <!-- cta -->
+      <section class="cta">
+        <img src={`${A}hero-1.webp`} alt="" loading="lazy" />
+        <div class="wrap cta__body">
+          <h2 class="display">If parents, teachers and students stand hand in hand, success is ours.</h2>
+          <div class="cta__btns">
+            <a class="pill pill--accent" href={REGISTER_URL} target="_blank" rel="noopener">Register Your Child</a>
+            <a class="pill pill--white" href="/contact-us/">Contact Us</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- footer -->
+    <footer class="foot">
+      <div class="wrap foot__grid">
+        <div>
+          <img class="foot__logo" src={`${A}logo-white.png`} alt="Al Muna International School" width="892" height="240" loading="lazy" />
+          <address>
+            18th Street, Al Adamah,<br />
+            Dammam, 31516<br />
+            <a href="tel:+966138266888">+966 13 826 6888</a><br />
+            <a href="mailto:almunaschooldammam@gmail.com">almunaschooldammam@gmail.com</a>
+          </address>
+        </div>
+        {footerCols.map((col) => (
+          <nav aria-label={col.title}>
+            <h2>{col.title}</h2>
+            {col.links.map(([label, href]) => <a href={href} {...ext(href)}>{label}</a>)}
+          </nav>
+        ))}
+        <div>
+          <h2>Find Us</h2>
+          <iframe title="Al Muna International School on Google Maps" src={MAP} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="foot__bar">
+        <div class="wrap foot__bar-row">
+          <span>Copyright &copy; {new Date().getFullYear()} Al Muna International School. All Rights Reserved.</span>
+          <span>Developed by <a href="https://www.digitalbuddha.in/" target="_blank" rel="noopener">Digitalbuddha Info Solutions LLP</a></span>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      // hero: crossfade slides every 6s (paused for reduced-motion users), dots jump to a slide
+      (() => {
+        const slides = (i) => document.querySelectorAll(`[data-slide="${i}"]`);
+        const dots = [...document.querySelectorAll('.hero__dot')];
+        let cur = 0, timer;
+        const go = (n) => {
+          slides(cur).forEach((e) => e.classList.remove('is-active'));
+          dots[cur].classList.remove('is-active');
+          cur = (n + dots.length) % dots.length;
+          slides(cur).forEach((e) => e.classList.add('is-active'));
+          dots[cur].classList.add('is-active');
+        };
+        const start = () => {
+          if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(() => go(cur + 1), 6000);
+        };
+        dots.forEach((d) => d.addEventListener('click', () => { clearInterval(timer); go(+d.dataset.go); start(); }));
+        start();
+
+        // tabs
+        // all panels share one grid cell and cross-fade; a pill slides behind the active tab
+        const btns = [...document.querySelectorAll('.tabs__btn')];
+        const ind = document.querySelector('.tabs__ind');
+        const moveInd = () => {
+          const b = btns.find((x) => x.getAttribute('aria-selected') === 'true');
+          ind.style.width = b.offsetWidth + 'px';
+          ind.style.height = b.offsetHeight + 'px';
+          ind.style.transform = `translate(${b.offsetLeft}px, ${b.offsetTop}px)`;
+        };
+        const select = (b) => {
+          btns.forEach((x) => {
+            const on = x === b;
+            const panel = document.getElementById(x.getAttribute('aria-controls'));
+            x.setAttribute('aria-selected', on);
+            x.tabIndex = on ? 0 : -1;
+            panel.classList.toggle('is-active', on);
+            panel.inert = !on;
+          });
+          moveInd();
+        };
+        btns.forEach((b, i) => {
+          b.addEventListener('click', () => select(b));
+          b.addEventListener('keydown', (e) => {
+            const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+            if (!step) return;
+            const next = btns[(i + step + btns.length) % btns.length];
+            next.focus();
+            select(next);
+          });
+        });
+        moveInd();
+        ind.classList.add('is-ready'); // only animate after the first placement
+        addEventListener('resize', moveInd);
+        document.fonts?.ready.then(moveInd);
+
+        // expanding panels: hover (mouse), click or focus opens a panel
+        const panels = [...document.querySelectorAll('.exp__item')];
+        const openPanel = (el) => panels.forEach((x) => {
+          x.classList.toggle('is-active', x === el);
+          x.setAttribute('aria-expanded', x === el);
+        });
+        panels.forEach((el) => {
+          el.addEventListener('click', () => openPanel(el));
+          el.addEventListener('focus', () => openPanel(el));
+          el.addEventListener('pointerenter', (e) => e.pointerType === 'mouse' && openPanel(el));
+        });
+
+        // photo reel: native scrolling (touch/trackpad) plus arrows, mouse drag, counter and progress line
+        const reel = document.querySelector('.reel');
+        const items = [...reel.children];
+        const fill = document.querySelector('.reel__bar span');
+        const count = document.querySelector('.reel__count b');
+        const pad = () => parseFloat(getComputedStyle(reel).paddingLeft);
+        // index of the photo whose left edge is closest to the track's start
+        const near = () => {
+          const at = reel.scrollLeft + pad();
+          return items.reduce((best, it, i) => (Math.abs(it.offsetLeft - at) < Math.abs(items[best].offsetLeft - at) ? i : best), 0);
+        };
+        const sync = () => {
+          const max = reel.scrollWidth - reel.clientWidth;
+          fill.style.transform = `scaleX(${max > 0 ? Math.max(0.08, reel.scrollLeft / max) : 1})`;
+          count.textContent = String(near() + 1).padStart(2, '0');
+        };
+        reel.addEventListener('scroll', sync, { passive: true });
+        addEventListener('resize', sync);
+        sync();
+        document.querySelectorAll('.reel__btn').forEach((b) => b.addEventListener('click', () => {
+          const next = items[Math.min(items.length - 1, Math.max(0, near() + +b.dataset.dir))];
+          reel.scrollTo({ left: next.offsetLeft - pad(), behavior: 'smooth' });
+        }));
+        let drag = null;
+        reel.addEventListener('pointerdown', (e) => {
+          if (e.pointerType !== 'mouse') return;
+          drag = { x: e.clientX, left: reel.scrollLeft };
+          reel.classList.add('is-drag');
+          reel.setPointerCapture(e.pointerId);
+        });
+        reel.addEventListener('pointermove', (e) => { if (drag) reel.scrollLeft = drag.left - (e.clientX - drag.x); });
+        const drop = () => { drag = null; reel.classList.remove('is-drag'); };
+        reel.addEventListener('pointerup', drop);
+        reel.addEventListener('pointercancel', drop);
+
+        // reveal on scroll: classes are added here, so without JS everything is simply visible
+        const io = 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (io) {
+          const targets = document.querySelectorAll('.eyebrow, .display, .stats__photo, .about__panel > *, .stat, .quote__grid > *, .tabs__bar, .exp, .values__list li, .path, .notice, .reel__item, .cta__btns, .foot__grid > *');
+          const seen = new IntersectionObserver((entries) => entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('in');
+            seen.unobserve(e.target);
+            const n = e.target.querySelector('[data-count]');
+            if (n) {
+              const end = +n.dataset.count, t0 = performance.now();
+              const tick = (t) => {
+                const k = Math.min(1, (t - t0) / 1400);
+                n.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
+                if (k < 1) requestAnimationFrame(tick);
+              };
+              requestAnimationFrame(tick);
+            }
+          }), { threshold: 0.15 });
+          targets.forEach((el) => {
+            // stagger siblings that enter together
+            el.style.transitionDelay = Math.min([...el.parentElement.children].indexOf(el), 6) * 80 + 'ms';
+            el.classList.add('reveal');
+            seen.observe(el);
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  :root {
+    --green: #005829; /* Overlake reference green */
+    --green-dark: #004621;
+    --green-soft: #e3f1da;
+    --accent: #8a1b2d; /* maroon: buttons, seal, labels on light backgrounds */
+    --accent-soft: #f3cfc7; /* blush tint of the maroon: small accents on green, where maroon itself would not show */
+    --cream: #f8f5ee;
+    --ink: #21201f;
+    --muted: #5d5a52;
+    --rust: var(--accent);
+    --radius: 18px;
+    --serif: 'Besley', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+  :root { --pattern-soft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.06'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Cpath d='M0 44h16M72 44h16M44 0v16M44 72v16'/%3E%3C/g%3E%3C/svg%3E"); }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--cream); color: var(--ink); font: 400 17px/1.65 var(--sans); }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  p { margin: 0 0 1em; }
+  h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 500; line-height: 1.15; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+  .skip { position: absolute; left: -999px; }
+  .skip:focus { left: 8px; top: 8px; background: #fff; padding: 8px 12px; z-index: 100; }
+  .rounded { border-radius: var(--radius); }
+  .sec { padding: 96px 0; }
+  .eyebrow { color: var(--rust); font-weight: 500; margin: 0 0 14px; }
+  .eyebrow--soft { color: var(--accent-soft); }
+  .kicker { font: 500 15px/1.4 var(--sans); color: var(--rust); margin: 0 0 12px; }
+  .display { font-size: clamp(32px, 4.2vw, 54px); color: var(--green); max-width: 18ch; letter-spacing: -0.01em; }
+  .display--sm { font-size: clamp(28px, 3.2vw, 42px); max-width: 24ch; }
+
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 999px; font: 500 15px/1 var(--sans); text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+  .pill--accent { background: var(--accent); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22); } /* thin light ring keeps the button edge visible on green */
+  .pill--accent:hover { background: #a62238; }
+  .pill--green { background: var(--green); color: #fff; }
+  .pill--green:hover { background: var(--green-dark); }
+  .pill--line { border-color: #c9c4b6; color: var(--green); background: transparent; }
+  .pill--line:hover { border-color: var(--green); background: #fff; }
+  .pill--white { background: #fff; color: var(--green); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, .reel:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px var(--accent); }
+
+  /* utility bar + header */
+  .util { background: var(--green-dark); color: #fff; font-size: 14px; }
+  .util__row { display: flex; justify-content: flex-end; gap: 28px; padding-top: 9px; padding-bottom: 9px; flex-wrap: wrap; }
+  .util a { text-decoration: none; opacity: 0.92; }
+  .util a:hover { opacity: 1; text-decoration: underline; }
+  .head { background: var(--green); color: #fff; position: sticky; top: 0; z-index: 50; }
+  .head__row { display: flex; align-items: center; gap: 28px; min-height: 84px; }
+  .head__logo img { width: 230px; height: auto; }
+  .nav { margin-left: auto; }
+  .nav ul { list-style: none; margin: 0; padding: 0; }
+  .nav > ul { display: flex; gap: 6px; }
+  .nav > ul > li { position: relative; }
+  .nav a { display: block; padding: 10px 14px; text-decoration: none; font-weight: 500; font-size: 16px; border-radius: 8px; }
+  .nav > ul > li > a:hover, .nav > ul > li:focus-within > a { background: rgba(255, 255, 255, 0.12); }
+  .sub { position: absolute; top: 100%; left: 0; min-width: 250px; background: #fff; color: var(--ink); border-radius: 12px; padding: 8px; box-shadow: 0 16px 40px rgba(0, 53, 25, 0.22); opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.18s, transform 0.18s, visibility 0.18s; }
+  .has-sub:hover .sub, .has-sub:focus-within .sub { opacity: 1; visibility: visible; transform: none; }
+  .nav > ul > li:nth-last-child(-n + 3) .sub { left: auto; right: 0; }
+  .sub a { font-weight: 400; font-size: 15px; padding: 9px 12px; }
+  .sub a:hover { background: var(--green-soft); color: var(--green); }
+  .burger { display: none; margin-left: auto; }
+  .burger summary { list-style: none; }
+  .burger summary::-webkit-details-marker { display: none; }
+  .burger__panel { position: absolute; left: 0; right: 0; top: 100%; background: var(--green-dark); padding: 16px 24px 28px; max-height: calc(100vh - 84px); overflow: auto; display: grid; gap: 18px; }
+  .burger__group { display: grid; gap: 2px; }
+  .burger__group a { text-decoration: none; padding: 6px 0; opacity: 0.85; font-size: 15px; }
+  .burger__group .burger__top { font: 500 20px/1.3 var(--serif); opacity: 1; color: var(--accent-soft); }
+
+  /* hero */
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .hero { --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.09'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Cpath d='M0 44h16M72 44h16M44 0v16M44 72v16'/%3E%3C/g%3E%3C/svg%3E"); position: relative; background: radial-gradient(120% 90% at 85% 20%, #0a6b37 0, var(--green) 45%, var(--green-dark) 100%); color: #fff; overflow: hidden; isolation: isolate; }
+  /* background: drifting 8-point-star lattice, fading out towards the photo side */
+  .hero__pattern { position: absolute; inset: -88px; z-index: -1; background: var(--pattern); animation: drift 40s linear infinite; mask-image: linear-gradient(100deg, #000 0, rgba(0, 0, 0, 0.5) 45%, transparent 75%); }
+  .orb { position: absolute; z-index: -1; pointer-events: none; }
+  .orb--rings { width: 760px; aspect-ratio: 1; right: -180px; top: -140px; border-radius: 50%; background: repeating-radial-gradient(circle, transparent 0 46px, rgba(255, 255, 255, 0.07) 46px 47px); animation: breathe 12s ease-in-out infinite alternate; }
+  .orb--dots { width: 170px; height: 120px; left: 4%; bottom: 96px; background: radial-gradient(var(--accent-soft) 1.6px, transparent 2px) 0 0 / 17px 17px; opacity: 0.45; animation: bob 9s ease-in-out infinite alternate; }
+
+  .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding-top: 48px; padding-bottom: 64px; }
+  .hero__lead { font: 500 20px/1.4 var(--serif); margin: 0 0 16px; color: var(--accent-soft); animation: rise 0.8s 0.1s both; }
+  .hero__lines { display: grid; min-height: 3.5em; font: 500 clamp(36px, 4.4vw, 64px)/1.12 var(--serif); letter-spacing: -0.015em; }
+  .hero__line { grid-area: 1 / 1; margin: 0; visibility: hidden; }
+  .hero__line.is-active { visibility: visible; }
+  .hero__line .w { display: inline-block; opacity: 0; }
+  /* each word rises in turn when its line becomes active */
+  .hero__line.is-active .w { animation: rise 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i) * 70ms + 150ms); }
+  .hero__actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; animation: rise 0.8s 0.5s both; }
+  .pill--ghost { border-color: rgba(255, 255, 255, 0.45); color: #fff; }
+  .pill--ghost:hover { background: rgba(255, 255, 255, 0.12); border-color: #fff; }
+  .hero__dots { display: flex; gap: 10px; margin-top: 40px; }
+  .hero__dot { position: relative; width: 38px; height: 6px; border-radius: 6px; border: 0; padding: 0; background: rgba(255, 255, 255, 0.3); cursor: pointer; overflow: hidden; }
+  .hero__dot::after { content: ''; position: absolute; inset: 0; background: var(--accent-soft); transform: scaleX(0); transform-origin: left; }
+  .hero__dot.is-active::after { animation: fill 6s linear both; } /* doubles as a progress bar for the 6s slide timer */
+
+  /* collage: arch-shaped photo, two floating photos, rotating seal */
+  .hero__art { position: relative; width: 100%; max-width: 560px; aspect-ratio: 1 / 1.04; justify-self: end; animation: rise 1s 0.2s both; }
+  .hero__art::before { content: ''; position: absolute; inset: 0 10% 0 16%; border: 2px solid var(--accent-soft); border-radius: 999px 999px 26px 26px; transform: translate(18px, 18px); opacity: 0.7; }
+  .hero__arch { position: absolute; inset: 0 10% 0 16%; border-radius: 999px 999px 26px 26px; overflow: hidden; background: var(--green-dark); box-shadow: 0 30px 60px rgba(0, 30, 14, 0.45); }
+  .hero__arch::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 53, 25, 0.55) 0, rgba(0, 53, 25, 0) 45%); }
+  .hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s; }
+  .hero__img.is-active { opacity: 1; animation: zoom 7s ease-out both; }
+  .hero__float { position: absolute; object-fit: cover; border: 6px solid var(--green); box-shadow: 0 18px 36px rgba(0, 30, 14, 0.4); }
+  .hero__float--a { left: 0; bottom: 9%; width: 36%; aspect-ratio: 1; border-radius: 50%; animation: bob 7s ease-in-out infinite alternate; }
+  .hero__float--b { right: 0; top: 11%; width: 30%; aspect-ratio: 4 / 5; border-radius: 18px; animation: bob 9s ease-in-out infinite alternate-reverse; }
+  .hero__badge { position: absolute; right: 1%; bottom: 3%; width: 124px; aspect-ratio: 1; display: grid; place-items: center; background: var(--accent); color: #fff; border-radius: 50%; box-shadow: 0 12px 28px rgba(0, 30, 14, 0.35); }
+  .hero__badge svg { position: absolute; inset: 0; animation: spin 22s linear infinite; }
+  .hero__badge text { font: 600 9.6px var(--sans); letter-spacing: 0.09em; fill: #fff; }
+  .hero__badge strong { font: 600 22px/1 var(--serif); }
+
+  .marquee { border-top: 1px solid rgba(255, 255, 255, 0.16); overflow: hidden; padding: 16px 0; }
+  .marquee__track { display: flex; width: max-content; animation: slide 36s linear infinite; }
+  .marquee span { font: 500 19px/1 var(--serif); white-space: nowrap; padding-right: 28px; opacity: 0.85; }
+  .marquee span::after { content: '\2726'; color: var(--accent-soft); margin-left: 28px; font-size: 14px; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes zoom { from { transform: scale(1.14); } to { transform: scale(1); } }
+  @keyframes bob { from { transform: translateY(-10px); } to { transform: translateY(12px); } }
+  @keyframes breathe { from { transform: scale(1); opacity: 0.7; } to { transform: scale(1.08); opacity: 1; } }
+  @keyframes drift { to { transform: translate(88px, 88px); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes slide { to { transform: translateX(-50%); } }
+  @keyframes fill { to { transform: scaleX(1); } }
+
+  /* scroll reveal (classes added by script) */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .reveal.in { opacity: 1; transform: none; }
+  /* the same star lattice as the banner, behind the other green areas */
+  .values, .foot { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.06'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Cpath d='M0 44h16M72 44h16M44 0v16M44 72v16'/%3E%3C/g%3E%3C/svg%3E"); }
+  .path { transition-property: opacity, transform, box-shadow; }
+
+  /* about */
+  /* heading runs the full width, sized to fall on two balanced lines on desktop */
+  .about .display { max-width: none; font-size: clamp(30px, 3.6vw, 46px); text-wrap: balance; }
+  /* green panel: tinted photo with one sweeping corner, text in white on the star lattice */
+  .about__panel { display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: center; margin-top: 56px; padding: 44px; border-radius: 32px; color: #fff; background: var(--pattern-soft), radial-gradient(110% 120% at 0 0, #0a6b37 0, var(--green) 50%, var(--green-dark) 100%); position: relative; overflow: hidden; }
+  .about__panel::after { content: ''; position: absolute; width: 380px; aspect-ratio: 1; right: -140px; bottom: -180px; border-radius: 50%; background: repeating-radial-gradient(circle, transparent 0 34px, rgba(255, 255, 255, 0.08) 34px 35px); pointer-events: none; }
+  .about__media { position: relative; margin: 0; }
+  .about__media img { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; border-radius: 180px 22px 22px 22px; }
+  /* green wash so the photo sits in the palette instead of fighting it */
+  .about__media::after { content: ''; position: absolute; inset: 0; border-radius: 180px 22px 22px 22px; background: linear-gradient(200deg, rgba(0, 88, 41, 0) 35%, rgba(0, 70, 33, 0.7) 100%), rgba(0, 88, 41, 0.14); }
+  .about__media figcaption { position: absolute; z-index: 1; left: 22px; bottom: 20px; display: grid; font-size: 14px; line-height: 1.3; }
+  .about__media figcaption strong { order: 2; font: 500 44px/1 var(--serif); }
+  .about__cols { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-content: start; }
+  .about__cols .kicker { color: var(--accent-soft); }
+  .about__cols p { opacity: 0.92; }
+  .about__cols .pill { justify-self: start; grid-column: 1 / -1; }
+
+  /* stats */
+  /* editorial layout: one real photograph, then figures set on hairline rules. No icons or coloured tiles. */
+  .stats { background: #fff; }
+  .stats__grid { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr); gap: 80px; align-items: center; }
+  .stats__photo { position: relative; margin: 0; }
+  .stats__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; }
+  .stats__photo figcaption { position: absolute; right: -28px; bottom: 36px; display: grid; gap: 4px; max-width: 250px; padding: 22px 26px; background: var(--green); color: #fff; border-radius: 4px; font-size: 13px; line-height: 1.45; box-shadow: 0 24px 48px rgba(0, 53, 25, 0.22); }
+  .stats__photo figcaption strong { font: 500 22px/1.2 var(--serif); }
+  .stats__photo figcaption span:first-child { text-transform: uppercase; letter-spacing: 0.14em; font-size: 11px; opacity: 0.8; }
+  .stats__body .display { max-width: none; }
+  .stats__list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; margin: 44px 0 0; }
+  .stat { padding: 26px 0 30px; border-top: 1px solid #d9d4c7; }
+  .stat dt { font: 600 11.5px/1.4 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .stat dd { margin: 12px 0 0; }
+  .stat strong { display: block; font: 400 clamp(52px, 5.4vw, 80px)/1 var(--serif); color: var(--green); letter-spacing: -0.025em; font-variant-numeric: tabular-nums; }
+  .stat span { display: block; margin-top: 12px; color: var(--muted); font-size: 15.5px; line-height: 1.55; max-width: 30ch; }
+
+  /* principal quote */
+  .quote__grid { display: grid; grid-template-columns: 300px 1fr; gap: 64px; align-items: center; }
+  .quote__img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: top; }
+  blockquote { margin: 0 0 24px; font: 500 clamp(24px, 2.6vw, 34px)/1.35 var(--serif); color: var(--green); }
+  .quote__by { color: var(--muted); }
+
+  /* tabs */
+  .tabs { background: #fff; }
+  .tabs__bar { position: relative; display: inline-flex; gap: 6px; margin: 40px 0 36px; padding: 6px; background: var(--cream); border-radius: 999px; flex-wrap: wrap; }
+  .tabs__btn { position: relative; z-index: 1; border: 0; background: transparent; padding: 11px 26px; border-radius: 999px; font: 500 15px/1 var(--sans); color: var(--green); cursor: pointer; transition: color 0.35s; }
+  .tabs__btn[aria-selected='true'] { color: #fff; }
+  /* the green pill that glides to the selected tab (placed by script) */
+  .tabs__ind { position: absolute; left: 0; top: 0; border-radius: 999px; background: var(--green); }
+  .tabs__ind.is-ready { transition: transform 0.5s cubic-bezier(0.3, 0.8, 0.2, 1), width 0.5s cubic-bezier(0.3, 0.8, 0.2, 1); }
+  /* panels are stacked in one cell, so the section keeps the tallest panel's height and never jumps */
+  .tabs__panels { display: grid; }
+  .tabs__panel { grid-area: 1 / 1; display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0s 0.35s; }
+  .tabs__panel.is-active { opacity: 1; visibility: visible; transition: opacity 0.5s 0.2s, visibility 0s; }
+  /* outgoing panel just fades; incoming photo wipes open and settles, copy rises in sequence */
+  .tabs__img { border-radius: var(--radius); overflow: hidden; clip-path: inset(0 100% 0 0 round 18px); transition: clip-path 0s 0.35s; }
+  .tabs__panel.is-active .tabs__img { clip-path: inset(0 0 0 0 round 18px); transition: clip-path 0.9s cubic-bezier(0.3, 0.8, 0.2, 1) 0.2s; }
+  .tabs__img img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; transform: scale(1.12); transition: transform 0s 0.35s; }
+  .tabs__panel.is-active .tabs__img img { transform: none; transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s; }
+  .tabs__copy > * { opacity: 0; transform: translateY(22px); transition: opacity 0s 0.35s, transform 0s 0.35s; }
+  .tabs__panel.is-active .tabs__copy > * { opacity: 1; transform: none; transition: opacity 0.6s, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: 0.35s; }
+  .tabs__panel.is-active .tabs__copy > :nth-child(2) { transition-delay: 0.45s; }
+  .tabs__panel.is-active .tabs__copy > :nth-child(3) { transition-delay: 0.55s; }
+  .tabs__panel h3 { font-size: 30px; color: var(--green); margin-bottom: 16px; }
+  .tabs__panel .pill { margin-top: 10px; }
+
+  /* expanding panels: six tall photos; the open one widens and shows its text, the rest stay as slim labelled strips */
+  .exp { display: flex; gap: 10px; height: 540px; margin-top: 48px; }
+  .exp__item { position: relative; flex: 1 1 0; min-width: 0; padding: 0; border: 0; border-radius: 10px; overflow: hidden; background: var(--green-dark); color: #fff; font: inherit; text-align: left; cursor: pointer; transition: flex-grow 0.8s cubic-bezier(0.25, 0.8, 0.2, 1); }
+  .exp__item.is-active { flex-grow: 5; cursor: default; }
+  .exp__item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.5) brightness(0.62); transform: scale(1.08); transition: filter 0.8s, transform 1.2s cubic-bezier(0.25, 0.8, 0.2, 1); }
+  .exp__item.is-active img { filter: none; transform: none; }
+  .exp__item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 53, 25, 0.92) 0, rgba(0, 53, 25, 0.25) 45%, rgba(0, 53, 25, 0) 70%); }
+  .exp__num { position: absolute; z-index: 1; top: 20px; left: 20px; font: 500 13px/1 var(--sans); letter-spacing: 0.14em; opacity: 0.85; }
+  .exp__label { position: absolute; z-index: 1; left: 50%; bottom: 24px; writing-mode: vertical-rl; transform: translateX(-50%) rotate(180deg); white-space: nowrap; font: 500 19px/1 var(--serif); transition: opacity 0.3s; }
+  .exp__item.is-active .exp__label { opacity: 0; }
+  .exp__body { position: absolute; z-index: 1; left: 32px; right: 32px; bottom: 30px; display: grid; gap: 10px; width: min(420px, calc(100% - 64px)); opacity: 0; transform: translateY(16px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; }
+  .exp__item.is-active .exp__body { opacity: 1; transform: none; transition: opacity 0.6s 0.4s, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.4s; }
+  .exp__kicker { font: 600 11.5px/1.4 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-soft); }
+  .exp__body strong { font: 500 clamp(26px, 2.6vw, 36px)/1.15 var(--serif); }
+  .exp__text { font-size: 15.5px; line-height: 1.55; opacity: 0.92; }
+
+  /* photo reel: mixed-height photos on a draggable track, with arrows, a counter and a progress line */
+  .reel-sec { background: #fff; overflow: hidden; }
+  .reel__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+  .reel__ctrl { display: flex; align-items: center; gap: 12px; }
+  .reel__count { margin-right: 12px; font: 500 14px/1 var(--sans); letter-spacing: 0.1em; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .reel__count b { font: 500 26px/1 var(--serif); color: var(--green); letter-spacing: 0; margin-right: 2px; }
+  .reel__btn { width: 54px; height: 54px; display: grid; place-items: center; border-radius: 50%; border: 1px solid #c9c4b6; background: transparent; color: var(--green); cursor: pointer; transition: background 0.25s, color 0.25s, border-color 0.25s; }
+  .reel__btn:hover { background: var(--green); border-color: var(--green); color: #fff; }
+  .reel { --pad: max(24px, calc((100vw - 1240px) / 2 + 24px)); display: flex; align-items: flex-start; gap: 22px; margin-top: 44px; padding: 0 var(--pad); overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: var(--pad); scrollbar-width: none; cursor: grab; user-select: none; }
+  .reel::-webkit-scrollbar { display: none; }
+  .reel.is-drag { cursor: grabbing; scroll-snap-type: none; }
+  .reel__item { position: relative; flex: none; margin: 0; scroll-snap-align: start; border-radius: 10px; overflow: hidden; }
+  .reel__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.25, 0.8, 0.2, 1); }
+  .reel__item:hover img { transform: scale(1.05); }
+  .reel__item--tall { width: 340px; height: 460px; }
+  .reel__item--wide { width: 520px; height: 350px; margin-top: 110px; }
+  .reel__item--mid { width: 400px; height: 400px; margin-top: 30px; }
+  .reel__item figcaption { position: absolute; left: 16px; bottom: 14px; padding: 6px 10px; border-radius: 999px; background: rgba(0, 53, 25, 0.75); color: #fff; font: 500 12px/1 var(--sans); letter-spacing: 0.12em; }
+  .reel__foot { display: flex; align-items: center; gap: 32px; margin-top: 40px; }
+  .reel__bar { flex: 1; height: 2px; background: #e3dfd3; }
+  .reel__bar span { display: block; height: 100%; background: var(--green); transform-origin: left; transform: scaleX(0.08); transition: transform 0.2s linear; }
+
+  /* values */
+  /* school photo behind a green overlay: darker on the left where the heading sits, a little clearer on the right */
+  .values { position: relative; color: #fff; padding: 96px 0; background: linear-gradient(100deg, rgba(0, 53, 25, 0.95) 0, rgba(0, 70, 33, 0.9) 45%, rgba(0, 88, 41, 0.8) 100%), url('/almuna/hero-2.jpg') center / cover no-repeat var(--green); }
+  @media (min-width: 901px) { .values { background-attachment: scroll, fixed; } } /* photo stays put while the section scrolls over it */
+  .values .display { color: #fff; margin-bottom: 20px; }
+  .values__grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 72px; align-items: start; }
+  .values__grid > div p { opacity: 0.9; max-width: 44ch; }
+  .values__list { list-style: none; counter-reset: v; margin: 0; padding: 0; display: grid; }
+  .values__list li { counter-increment: v; display: flex; gap: 20px; align-items: baseline; padding: 15px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); font: 500 20px/1.35 var(--serif); }
+  .values__list li::before { content: counter(v, decimal-leading-zero); font: 500 13px/1 var(--sans); color: var(--accent-soft); min-width: 22px; }
+
+  /* paths */
+  .paths__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 44px; }
+  .path { position: relative; display: block; border-radius: var(--radius); overflow: hidden; aspect-ratio: 3 / 4; color: #fff; text-decoration: none; }
+  .path img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .path:hover img { transform: scale(1.05); }
+  .path::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 53, 25, 0.95) 0, rgba(0, 53, 25, 0.35) 50%, rgba(0, 53, 25, 0) 75%); }
+  .path__body { position: absolute; z-index: 1; left: 26px; right: 26px; bottom: 26px; display: grid; gap: 8px; }
+  .path__body strong { font: 500 34px/1.1 var(--serif); }
+  .path__body em { font-style: normal; font-weight: 500; color: var(--accent-soft); margin-top: 6px; }
+
+  /* notices */
+  .news { background: #fff; }
+  .news__list { margin-top: 36px; border-top: 1px solid #e3dfd3; }
+  .notice { display: grid; grid-template-columns: 130px 1fr auto; gap: 24px; align-items: baseline; padding: 20px 4px; border-bottom: 1px solid #e3dfd3; text-decoration: none; }
+  .notice time { color: var(--rust); font-weight: 500; font-size: 15px; }
+  .notice span { font: 500 20px/1.35 var(--serif); color: var(--green); }
+  .notice em { font-style: normal; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--muted); }
+  .notice:hover span { text-decoration: underline; }
+
+  /* cta */
+  .cta { position: relative; color: #fff; overflow: hidden; }
+  .cta > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cta::after { content: ''; position: absolute; inset: 0; background: rgba(0, 70, 33, 0.82); }
+  .cta__body { position: relative; z-index: 1; padding-top: 110px; padding-bottom: 110px; }
+  .cta .display { color: #fff; max-width: 22ch; }
+  .cta__btns { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+
+  /* footer */
+  .foot { background: var(--green-dark); color: rgba(255, 255, 255, 0.86); font-size: 15px; }
+  .foot__grid { display: grid; grid-template-columns: 1.4fr 0.8fr 1fr 1.4fr; gap: 48px; padding-top: 72px; padding-bottom: 60px; }
+  .foot__logo { width: 250px; height: auto; margin-bottom: 22px; }
+  .foot address { font-style: normal; line-height: 1.8; }
+  .foot h2 { font: 600 13px/1.4 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-soft); margin-bottom: 16px; }
+  .foot a { text-decoration: none; }
+  .foot a:hover { color: #fff; text-decoration: underline; }
+  .foot nav a { display: block; padding: 4px 0; }
+  .foot iframe { width: 100%; height: 210px; border: 0; border-radius: 12px; display: block; }
+  .foot__bar { border-top: 1px solid rgba(255, 255, 255, 0.16); font-size: 13px; }
+  .foot__bar-row { display: flex; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px; }
+
+  @media (max-width: 1100px) {
+    .nav, .head__cta { display: none; }
+    .burger { display: block; }
+  }
+  @media (max-width: 900px) {
+    .sec, .values { padding: 64px 0; }
+    .stats__grid { grid-template-columns: 1fr; gap: 56px; }
+    .stats__photo img { aspect-ratio: 4 / 3; }
+    .stats__photo figcaption { right: 16px; bottom: -24px; }
+    .util__row { justify-content: flex-start; gap: 6px 18px; overflow-x: auto; flex-wrap: nowrap; white-space: nowrap; }
+    .hero__grid { grid-template-columns: 1fr; gap: 36px; padding-top: 32px; padding-bottom: 44px; }
+    .hero__art { order: -1; justify-self: center; max-width: 420px; }
+    .hero__lines { min-height: 3.6em; }
+    .hero__badge { width: 96px; }
+    .hero__badge strong { font-size: 17px; }
+    .orb--dots { display: none; }
+    .about__panel { padding: 24px; border-radius: 24px; }
+    .about__media img, .about__media::after { border-radius: 110px 18px 18px 18px; }
+    .about__panel, .quote__grid, .tabs__panel, .values__grid { grid-template-columns: 1fr; gap: 32px; }
+    .quote__img { max-width: 260px; }
+    .paths__grid { grid-template-columns: 1fr; }
+    .path { aspect-ratio: 4 / 3; }
+    .notice { grid-template-columns: 1fr; gap: 4px; }
+    .foot__grid { grid-template-columns: 1fr 1fr; gap: 36px 28px; }
+    .foot__grid > :first-child, .foot__grid > :last-child { grid-column: 1 / -1; }
+    /* panels become a vertical accordion */
+    .exp { flex-direction: column; height: auto; gap: 8px; }
+    .exp__item { flex: none; height: 74px; transition: height 0.7s cubic-bezier(0.25, 0.8, 0.2, 1); }
+    .exp__item.is-active { height: 360px; }
+    .exp__label { writing-mode: horizontal-tb; left: 60px; bottom: 50%; transform: translateY(50%); }
+    .exp__num { top: 50%; transform: translateY(-50%); }
+    .exp__item.is-active .exp__num { top: 20px; transform: none; }
+    .exp__body { left: 22px; right: 22px; bottom: 22px; width: auto; }
+    .reel__item--tall { width: 240px; height: 330px; }
+    .reel__item--wide { width: 320px; height: 230px; margin-top: 70px; }
+    .reel__item--mid { width: 270px; height: 280px; margin-top: 20px; }
+    .reel__btn { width: 46px; height: 46px; }
+  }
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .head__logo img { width: 190px; }
+    .about__cols { grid-template-columns: 1fr; }
+    .stats__list { gap: 0 28px; }
+    .tabs__bar { gap: 2px; }
+    .tabs__btn { padding: 10px 13px; font-size: 13.5px; } /* keeps the three tabs on one row */
+    .stat { padding: 20px 0 22px; }
+    .foot__grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+    .hero__line .w { opacity: 1; }
+  }
+</style>
