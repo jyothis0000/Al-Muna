@@ -94,9 +94,10 @@
 /* ---------- Hero ----------
    hero-top.jpg is the building photo with 130px of space added above it, under a plain navy
    gradient (#0e204a, same as the bottom fade) baked evenly across the top. No blur.
-   The photo is anchored to its top edge and, on desktop, to the left. */
+   The photo is anchored to its top edge and to the left, so its pale sky sits behind the logo.
+   On phones only a narrow slice of the photo fits, so it is shifted to the sky side (10% from the left). */
 .site-hero-banner .site-slider-image {
-  object-position: center top !important;
+  object-position: 10% top !important;
 }
 @media (min-width: 768px) {
   .site-hero-banner .site-slider-image {
@@ -245,5 +246,17 @@
   }
   .am-footer__bar-inner {
     padding: 14px 20px;
+  }
+}
+
+/* Phones: the template lays a flat 60% navy tint over the whole banner photo, which hides the
+   blue/red logo. The tint now starts clear at the top edge (behind the logo) and reaches the same
+   60% a third of the way down, so the headline area is as dark as before. */
+@media (max-width: 767px) {
+  .site-hero-banner .site-slider-image-block::before {
+    background-color: transparent !important;
+    background-image:
+      linear-gradient(to top, rgb(14, 32, 74), rgba(14, 32, 74, 0) 70%),
+      linear-gradient(to bottom, rgba(14, 32, 74, 0) 0, rgba(14, 32, 74, 0.6) 34%) !important;
   }
 }
