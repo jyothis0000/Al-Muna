@@ -1,0 +1,77 @@
+---
+// Own footer markup (styled in public/almuna/theme.css under ".am-footer"), replacing the template's.
+import { REGISTER_URL } from './Nav.astro';
+
+const MAP =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3572.735614668519!2d50.095368815034846!3d26.432007183336978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49fc8090c5007d%3A0xffca2829693c42e4!2sAl%20Muna%20International%20School%20for%20Boys!5e0!3m2!1sen!2sin!4v1680861261501!5m2!1sen!2sin';
+
+const columns = [
+  {
+    title: 'Quick Links',
+    links: [
+      { label: 'About Us', href: '/about-us/' },
+      { label: 'Admission', href: '/admission/' },
+      { label: 'Academics', href: '/academics/' },
+      { label: 'Gallery', href: '/gallery/' },
+      { label: 'Contact Us', href: '/contact-us/' },
+    ],
+  },
+  {
+    title: 'Information',
+    links: [
+      { label: 'Fee Structure', href: '/fee-structure/' },
+      { label: 'Academic Calendar', href: '/academic-calendar/' },
+      { label: 'Mandatory Public Disclosure', href: '/mandatory-public-disclosure/' },
+      { label: 'Register Your Child', href: REGISTER_URL },
+    ],
+  },
+];
+const ext = (href) => (href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {});
+---
+<footer class="am-footer">
+  <div class="am-footer__inner">
+    <div class="am-footer__brand">
+      <a href="/" class="am-footer__logo">
+        <img src="/almuna/logo.png" alt="Al Muna International School" width="891" height="240" />
+      </a>
+      <p>
+        Al Muna provides a balanced, safe and realistic environment for young children to grow and learn.
+      </p>
+      <address>
+        18th Street, Al Adamah,<br />
+        Dammam, 31516<br />
+        <a href="tel:+966138266888">+966 13 826 6888</a><br />
+        <a href="mailto:almunaschooldammam@gmail.com">almunaschooldammam@gmail.com</a>
+      </address>
+    </div>
+
+    {columns.map((col) => (
+      <nav class="am-footer__col" aria-label={col.title}>
+        <h2>{col.title}</h2>
+        {col.links.map((l) => (
+          <a href={l.href} {...ext(l.href)}>{l.label}</a>
+        ))}
+      </nav>
+    ))}
+
+    <div class="am-footer__map">
+      <h2>Find Us</h2>
+      <iframe
+        title="Al Muna International School on Google Maps"
+        src={MAP}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="am-footer__bar">
+    <div class="am-footer__bar-inner">
+      <span>Copyright &copy; <span id="current-year">2026</span> Al Muna International School. All Rights Reserved.</span>
+      <span>
+        Developed by
+        <a href="https://www.digitalbuddha.in/" target="_blank" rel="noopener">Digitalbuddha Info Solutions LLP</a>
+      </span>
+    </div>
+  </div>
+</footer>

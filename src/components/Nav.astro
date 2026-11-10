@@ -1,0 +1,82 @@
+---
+// Menu mirrors almunaschool.org. Class names are the ones the template's CSS/JS expect.
+export const REGISTER_URL =
+  'https://registration.olivoerp.com/schoolRegistration?F454tysdvr4dys=8Z6M34mm3iN4FE9aZgwoaw==';
+
+const menu = [
+  {
+    label: 'About Us',
+    href: '/about-us/',
+    children: [
+      { label: 'Our Team', href: '/our-team/' },
+      { label: 'Why Us', href: '/why-us/' },
+      { label: 'Mission, Vision & Values', href: '/mission-vision-values/' },
+    ],
+  },
+  {
+    label: 'Admission',
+    href: '/admission/',
+    children: [
+      { label: 'Admission Process', href: '/admission-process/' },
+      { label: 'Register Your Child', href: REGISTER_URL },
+      { label: 'Fee Structure', href: '/fee-structure/' },
+      { label: 'Dress Code', href: '/dress-code/' },
+    ],
+  },
+  {
+    label: 'Academics',
+    href: '/academics/',
+    children: [
+      { label: 'Academic Calendar', href: '/academic-calendar/' },
+      { label: 'Results', href: '/results/' },
+      { label: 'Book List', href: '/book-list/' },
+    ],
+  },
+  {
+    label: 'Public Disclosure',
+    href: '/mandatory-public-disclosure/',
+    children: [
+      { label: 'Affiliation', href: '/affiliation/' },
+      { label: 'Company Registration', href: '/company-registration/' },
+      { label: 'License', href: '/license/' },
+      { label: 'No Objection Certificate (NOC)', href: '/no-objection-certificate-noc/' },
+      { label: 'Building Safety Certificate', href: '/building-safety-certificate/' },
+      { label: 'Fire Safety Certificate', href: '/fire-safety-certificate/' },
+      { label: 'Self Certificate', href: '/self-certificate/' },
+      { label: 'Water & Health Certificate', href: '/water-health-certificate/' },
+      { label: 'School Management Committee (SMC)', href: '/school-management-committee-smc/' },
+      { label: 'PTA Members', href: '/pta-members/' },
+    ],
+  },
+  { label: 'Gallery', href: '/gallery/' },
+  { label: 'Contact Us', href: '/contact-us/' },
+];
+const ext = (href) => (href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {});
+---
+<nav id="site-navigation" class="site-navigation">
+  <ul class="site-nav-block">
+    {menu.map((item, i) => (
+      <li class:list={[
+        'site-nav-item level2',
+        i === 0 && 'site-nav-first-item',
+        i === menu.length - 1 && 'site-nav-last-item',
+        item.children && 'site-nav-child',
+      ]}>
+        <a class="site-nav-link" href={item.href}>{item.label}</a>
+        <span class:list={['site-nav-linktext', item.children && 'site-nav-expand']}></span>
+        {item.children && (
+          <div class="site-subnav-wrapper">
+            <ul class="site-subnav-block site-subnav-level3">
+              {item.children.map((c) => (
+                <li class="site-subnav-item level3">
+                  <a class="site-subnav-link" href={c.href} {...ext(c.href)}>{c.label}</a>
+                  <span class="site-nav-linktext"></span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </li>
+    ))}
+  </ul>
+</nav>

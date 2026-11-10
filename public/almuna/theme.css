@@ -1,0 +1,249 @@
+/* Al Muna overrides on top of the template CSS */
+
+/* ---------- Header logo ----------
+   The template sizes these slots for a square crest (170px at page top, 50px once the header
+   sticks); ours is a wide wordmark, so both get more room. The first slide shows at page top,
+   the last slide once the header is sticky.
+   logo.png is a rebuild (150px crest + redrawn wordmark, 891x240) because the site only had a 200x109 file. */
+:root {
+  --logo-top: 260px;
+  --logo-sticky: 255px;
+}
+@media (max-width: 1250px) {
+  /* narrower desktops: keep the sticky logo clear of the menu */
+  :root { --logo-sticky: 220px; }
+}
+@media (max-width: 767px) {
+  /* phones: keep both logos clear of the menu button */
+  :root { --logo-top: 210px; --logo-sticky: 210px; }
+}
+
+#site-header .site-header-block #site-header-logo .cms-gallery-feature {
+  max-width: none;
+}
+#site-header .site-header-block #site-header-logo .cms-gallery-feature .slick-track,
+#site-header .site-header-block #site-header-logo .site-slide:first-child {
+  width: var(--logo-top) !important;
+}
+#site-header .site-header-block #site-header-logo .site-slide:last-child {
+  width: var(--logo-sticky) !important;
+  margin-top: 0;
+}
+#site-header.fixed .site-header-block #site-header-logo .cms-gallery-feature .slick-track {
+  width: var(--logo-sticky) !important;
+}
+#site-header-logo .site-slide img {
+  width: 100%;
+  height: auto;
+}
+
+/* Sticky bar: logo and menu vertically centred (the template top-aligns a 50px crest in a 60px bar). */
+#site-header.fixed {
+  max-height: none !important; /* template caps the bar at 70px; the larger logo needs ~79px */
+}
+#site-header.fixed .site-header-block #site-header-logo .cms-gallery-feature {
+  margin: 5px 0 !important;
+}
+#site-header.fixed .site-menu-wrapper {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* ---------- Header menu ----------
+   The template sets it in Staatliches, a heavy display face with a single weight.
+   Roboto Regular (already loaded by the template) gives the lighter look. */
+#site-header .site-header-right .site-nav-link,
+#site-header .site-header-right .site-subnav-link,
+#site-header .site-header-block #site-header-logo .header-quicklinks-wrapper .cms-text-feature-data ul li a big {
+  font-family: Roboto, sans-serif !important;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+/* Roboto is wider than Staatliches, so size and gaps are tightened to keep the menu clear of the logo. */
+#site-header .site-header-right .site-nav-link {
+  font-size: 15px !important;
+  margin: 0 16px 0 20px !important;
+}
+@media (max-width: 1250px) {
+  #site-header .site-header-right .site-nav-link {
+    font-size: 13px !important;
+    margin: 0 10px 0 14px !important;
+  }
+}
+#site-header .site-header-right .site-subnav-link {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+#site-header .site-header-block #site-header-logo .header-quicklinks-wrapper .cms-text-feature-data ul li a big {
+  font-size: 12px;
+}
+/* Dropdown arrow: re-centred on the smaller text, and hidden on items with no submenu (Gallery, Contact Us). */
+#site-header .site-header-right .site-nav-link::before {
+  top: 50% !important;
+  right: -20px !important;
+  line-height: 1 !important;
+  height: auto !important;
+  transform: translateY(-50%);
+}
+#site-header .site-header-right .site-nav-item:not(.site-nav-child) > .site-nav-link::before {
+  display: none !important;
+}
+
+
+/* ---------- Hero ----------
+   hero-top.jpg is the building photo with 130px of space added above it, under a plain navy
+   gradient (#0e204a, same as the bottom fade) baked evenly across the top. No blur.
+   The photo is anchored to its top edge and, on desktop, to the left. */
+.site-hero-banner .site-slider-image {
+  object-position: center top !important;
+}
+@media (min-width: 768px) {
+  .site-hero-banner .site-slider-image {
+    object-position: left top !important;
+  }
+}
+/* The top gradient is in the photo itself, so the template's navy top fade is dropped (bottom fade kept). */
+.site-hero-banner .site-slider-image-block::before {
+  background-image: linear-gradient(to top, rgb(14, 32, 74), rgba(14, 32, 74, 0) 70%) !important;
+}
+/* Banner text (headline and intro paragraph) sits 35px lower than the template's default (bottom: 40px). */
+@media (min-width: 768px) {
+  .site-hero-banner .site-slider-caption {
+    bottom: 5px !important;
+  }
+}
+/* Intro paragraph (left) sits at the bottom of the banner text row, level with the foot of the headline
+   (the template centres it vertically). */
+@media (min-width: 768px) {
+  .site-hero-banner .site-slider-caption .site-slider-more-desc {
+    align-self: flex-end;
+  }
+}
+/* Intro paragraph in Roboto Light. */
+.site-hero-banner .site-slider-more-desc-data,
+.site-hero-banner .site-slider-more-desc-data p {
+  font-weight: 300 !important;
+}
+
+/* ---------- Home sections ---------- */
+/* Breathing room between the Principal's section and the Welcome section below it
+   (the template leaves only 20px). */
+#TextFeature_7b460f47a8e54ca19c3d4ffa72238aa0 {
+  margin-bottom: 50px !important;
+}
+@media (min-width: 768px) {
+  #GalleryFeature_5cad46c07d5449e1a7b016dcea6f90ad,
+  #TextFeature_7b460f47a8e54ca19c3d4ffa72238aa0 {
+    margin-bottom: 90px !important;
+  }
+}
+/* Closing banner above the footer: the template's navy fade from the right stops at 40% of the width,
+   short of where the headline starts. It now stays strong behind the text and reaches 70%. */
+.cta-gallery-wrapper .site-slider-image-block::before {
+  background-image: linear-gradient(to left, rgb(14, 32, 74) 0, rgba(14, 32, 74, 0.82) 35%, rgba(14, 32, 74, 0) 70%) !important;
+}
+
+/* ---------- Footer ----------
+   Own footer (src/components/Footer.astro). Light background so the blue/red logo is visible,
+   with a navy bar for the copyright line. */
+.am-footer {
+  background: #f3f5fa;
+  border-top: 4px solid #21418d;
+  color: #3b4660;
+  font-family: Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.am-footer__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 64px 24px 56px;
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr 1fr 1.4fr;
+  gap: 48px;
+}
+.am-footer__logo img {
+  display: block;
+  width: 240px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+.am-footer p {
+  margin: 0 0 16px;
+  max-width: 34ch;
+}
+.am-footer address {
+  font-style: normal;
+  margin: 0;
+}
+.am-footer h2 {
+  margin: 0 0 18px;
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: #0e204a;
+}
+.am-footer a {
+  color: #21418d;
+  text-decoration: none;
+}
+.am-footer a:hover,
+.am-footer a:focus-visible {
+  color: #df3246;
+  text-decoration: underline;
+}
+.am-footer__col a {
+  display: block;
+  padding: 4px 0;
+}
+.am-footer__map iframe {
+  display: block;
+  width: 100%;
+  height: 220px;
+  border: 0;
+  border-radius: 6px;
+}
+.am-footer__bar {
+  background: #0e204a;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+}
+.am-footer__bar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+.am-footer__bar a,
+.am-footer__bar a:hover,
+.am-footer__bar a:focus-visible {
+  color: #fff;
+  font-weight: 500;
+}
+@media (max-width: 991px) {
+  .am-footer__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 32px;
+    padding: 48px 20px 40px;
+  }
+  .am-footer__brand,
+  .am-footer__map {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 479px) {
+  .am-footer__inner {
+    grid-template-columns: 1fr;
+  }
+  .am-footer__bar-inner {
+    padding: 14px 20px;
+  }
+}
