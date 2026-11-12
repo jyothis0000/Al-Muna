@@ -1,0 +1,1144 @@
+---
+// Home 3: dark, typographic template in Al Muna blue. Layout modelled on the arshawnarbabi.com reference
+// (aura banner with a giant name, floating pill menu, oversized section titles, statement paragraphs,
+// hairline-ruled rows, accordion, giant closing wordmark), written fresh with Al Muna's own content.
+// ponytail: header, footer, styles and script live in this one file; split them out when a second page uses this template.
+import { REGISTER_URL } from '../components/Nav.astro';
+
+const A = '/almuna/';
+const title = 'Al Muna International School | Dammam, Saudi Arabia';
+const desc =
+  'Al Muna International School, Dammam is a CBSE-affiliated school recognized by the Ministry of Education, KSA, providing a balanced, safe and realistic environment for young children to grow and learn.';
+
+const nav = [
+  { label: 'About', href: '/about-us/' },
+  { label: 'Academics', href: '/academics/' },
+  { label: 'Admission', href: '/admission/' },
+  { label: 'Gallery', href: '/gallery/' },
+];
+
+// the four sharpest photos, since these rows run the full width of the page
+const life = [
+  { img: 'hero-2.jpg', name: 'The campus', kind: 'Learn', text: 'A large building with airy, sunny and spacious smart classrooms, separate libraries, assembly halls, audio visual rooms and well equipped composite, mathematics and computer labs.' },
+  { img: 'hero-4.jpg', name: 'Sports', kind: 'Play', text: 'Well planned facilities set apart for the physical well-being of the students, with equal emphasis on academics, fine arts and sports.' },
+  { img: 'hero-3.jpg', name: 'Assembly', kind: 'Speak', text: 'Public speaking is introduced to the students as early as KG through presentations given at the assembly, and built on through competitions and debates.' },
+  { img: 'g26-35.jpg', name: 'Milestones', kind: 'Celebrate', text: 'Not only are the children’s inborn talents identified at a young age, they are encouraged to blossom under our care.' },
+];
+
+const stats = [
+  { n: '2007', c: 2007, t: 'Established', d: 'by the managing committee of TP Group of Institutions' },
+  { n: '1:25', t: 'Teacher–student ratio', d: 'for personal attention and care' },
+  { n: '7', c: 7, t: 'Third languages', d: 'Urdu, Malayalam, Arabic, Tamil, Telugu, Marathi and Kannada' },
+  { n: '40', c: 40, t: 'School buses', d: 'in the Muna Transport System: 5 own and 35 hired on contract' },
+];
+
+const progs = [
+  { name: 'Academics', img: 'contact-1.webp', title: 'Syllabus and classes', href: '/academics/', cta: 'Explore academics', text: 'The school follows the CBSE syllabus with English as the medium of instruction, offering English, Hindi, Mathematics, Science/EVS, Social Science and Arabic, along with auxiliary subjects including Saudi History and Culture, Computer Science, General Knowledge and Islamic Studies/Moral Science.' },
+  { name: 'Co-Scholastic', img: 'life-3.jpg', title: 'All-round development', href: '/why-us/', cta: 'Why Al Muna', text: 'Apart from the normal studies, the school provides a number of co-scholastic activities for the all-round development of children, inside and outside the classrooms. Public speaking is introduced as early as KG, and monthly Zeal Training classes help improve self-confidence and mental ability.' },
+  { name: 'Admission', img: 'g26-35.jpg', title: 'Join Al Muna', href: '/admission-process/', cta: 'Admission process', text: 'Children who meet the required age criteria are considered for admission after a successful written test and interview. Children seeking admission in LKG should complete 4 years, and for Class One 6 years, by April of the respective academic year.' },
+];
+
+const values = [
+  { k: 'Moral', t: 'The school promotes intercultural understanding, tolerance and respect for others.' },
+  { k: 'Modern', t: 'A high quality learning environment that is innovative, challenging and enterprising.' },
+  { k: 'Mastery', t: 'Equal emphasis on Academics, Fine Arts and Sports, so every child can excel.' },
+];
+
+const circulars = [
+  { f: 'circular-048-parent-teacher-meeting.pdf', d: '21 Oct 2026', t: 'Parent–Teacher Meeting for Classes III–XII (BS & GS), Saturday, 24 October 2026' },
+  { f: 'circular-036-saudi-national-day-holidays.pdf', d: '22 Sep 2026', t: '96th Saudi National Day Holidays' },
+  { f: 'circular-031-resumption-of-regular-classes.pdf', d: '02 Sep 2026', t: 'Resumption of Regular Classes After Summer Vacation' },
+  { f: 'circular-015-eid-ul-azha-holidays.pdf', d: '22 May 2026', t: 'Eid ul Azha Holidays and Office Timing' },
+  { f: 'circular-120-ramadan-eid-ul-fitr-holidays.pdf', d: '11 Mar 2026', t: 'Ramadan & Eid-ul-Fitr Holidays and Schedule for March / Commencement of Academic Year 2026–27' },
+];
+
+const letters = (word, start = 0) => [...word].map((ch, i) => ({ ch, i: start + i }));
+const intro =
+  'Al Muna provides a balanced, safe and realistic environment for young children to grow and learn, and turns out young boys and girls into good citizens with a well developed personality. We are based in Dammam.';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={desc} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:image" content={`${A}hero-2.jpg`} />
+    <link rel="icon" href={`${A}favicon.png`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="wcur" aria-hidden="true"><span>Explore</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg></div>
+
+    <!-- loader: the real logo fills with colour like ink, lifts away, and the white curtain wipes up. CSS only. -->
+    <div class="loader" aria-hidden="true"><b><img class="ghost" src={`${A}logo.png`} alt="" /><img class="fill" src={`${A}logo.png`} alt="" /></b></div>
+
+    <!-- header: full-width and transparent at the top of the page (monogram left, links right);
+         once you scroll it contracts into a centred, blurred pill and the monogram becomes the name -->
+    <header class="bar">
+<a class="bar__name" href="/home3/" aria-label="Al Muna International School, home">
+        <span class="bar__logo" aria-hidden="true"></span>
+      </a>
+      <nav class="bar__links" aria-label="Main">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <a class="bar__cta" href={REGISTER_URL} target="_blank" rel="noopener">Register</a>
+    </header>
+
+    <main id="main">
+      <!-- hero: aura + giant name -->
+      <section class="hero dark">
+        <div class="aura" aria-hidden="true" data-ripple={`${A}aura-blue.jpg`}><i></i><i></i></div>
+        <div class="hero__inner">
+          <h1 class="hero__name" aria-label="Al Muna International School">
+            <span class="hero__line" aria-hidden="true">{letters('Al Muna').map((l) => <span style={`--i:${l.i}`}>{l.ch === ' ' ? ' ' : l.ch}</span>)}</span>
+            <span class="hero__line hero__line--sm" aria-hidden="true">{letters('International School', 7).map((l) => <span style={`--i:${l.i}`}>{l.ch === ' ' ? ' ' : l.ch}</span>)}</span>
+          </h1>
+          <dl class="hero__meta">
+            <div>
+              <dt>Admissions</dt>
+              <dd>KG to Grade XII. <a href={REGISTER_URL} target="_blank" rel="noopener">Register online</a>.</dd>
+            </div>
+            <div>
+              <dt>Contact</dt>
+              <dd><a href="tel:+966138266888">+966 13 826 6888</a></dd>
+            </div>
+            <div>
+              <dt>CBSE affiliated</dt>
+              <dd>Moral, Modern, Mastery.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- intro: photo + large statement that fills as you scroll -->
+      <section class="intro dark" aria-label="Introduction">
+        <div class="grid">
+          <div class="intro__photo fx rv"><img src={`${A}hero-1.webp`} alt="Al Muna International School building" /></div>
+          <p class="intro__text" data-fill>{intro}</p>
+        </div>
+      </section>
+
+      <!-- from the principal -->
+      <section class="prin dark" aria-label="From the Principal">
+        <div class="grid">
+          <div class="prin__photo fx"><img src={`${A}principal.jpg`} alt="The Principal of Al Muna International School" /></div>
+          <div class="prin__body">
+            <p class="prin__label rv">From the Principal</p>
+            <blockquote class="prin__quote" data-fill>“Don’t limit the child to your own learning, for he was born on another time.” – Rabindranath Tagore</blockquote>
+            <p class="prin__text rv">
+              Started in 2007 with an aim of imparting quality education to expatriate Indian students, Al Muna is moving
+              ahead to make its students valuable global citizens. It is truly a close family experience for staff and
+              children alike: children get individual attention, care and love, and a hardworking, sincere and committed
+              team of teachers is our specialty.
+            </p>
+            <p class="prin__more rv"><a class="btn btn--light" href="/about-us/">Principal’s message <span aria-hidden="true">&rarr;</span></a></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- programmes: academics / co-scholastic / admission -->
+      <section class="prog light" aria-label="Programmes">
+        <h2 class="h2 h2--center">Learn, grow, belong</h2>
+        <div class="prog__list">
+          {progs.map((g, i) => (
+            <div class={`prog__item rv${i === 0 ? ' is-open' : ''}`}>
+              <button type="button" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`prog-${i}`}>
+                <em>{String(i + 1).padStart(2, '0')}</em>
+                <span>{g.name}</span>
+                <i aria-hidden="true"></i>
+              </button>
+              <div class="prog__a" id={`prog-${i}`}>
+                <div class="prog__in">
+                  <div class="prog__img"><img src={`${A}${g.img}`} alt="" loading="lazy" /></div>
+                  <div class="prog__copy">
+                    <h3>{g.title}</h3>
+                    <p>{g.text}</p>
+                    <a class="btn btn--dark" href={g.href}>{g.cta} <span aria-hidden="true">&rarr;</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- life at al muna: large rows -->
+      <section class="work light">
+        <h2 class="mega" data-drift aria-label="Life at Al Muna"><span aria-hidden="true">Life at Al Muna</span></h2>
+        <div class="life">
+          <a class="life__stage" href="/why-us/" data-work-link aria-label="Life at Al Muna">
+            {life.map((w, i) => <img class={i === 0 ? 'is-on' : ''} src={`${A}${w.img}`} alt="" loading={i === 0 ? 'eager' : 'lazy'} />)}
+          </a>
+          <ol class="life__list">
+            {life.map((w, i) => (
+              <li class={i === 0 ? 'is-on' : ''}>
+                <button type="button" aria-expanded={i === 0 ? 'true' : 'false'}>
+                  <em>{String(i + 1).padStart(2, '0')}</em><span>{w.name}</span><small>{w.kind}</small>
+                </button>
+                <div class="life__a"><div><p>{w.text}</p></div></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <p class="work__more rv"><a class="btn btn--dark" href="/why-us/">See all facilities <span aria-hidden="true">&rarr;</span></a></p>
+      </section>
+
+      <!-- numbers -->
+      <section class="nums dark">
+        <div class="nums__grid">
+          {stats.map((s) => (
+            <div class="rv">
+              <strong data-count={s.c}>{s.n}</strong>
+              <span>{s.t}</span>
+              <small>{s.d}</small>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- mission, vision and values -->
+      <section class="mvv dark" aria-label="Mission, Vision and Values">
+        <div class="mvv__bg" aria-hidden="true"><img src={`${A}hero-4.jpg`} alt="" loading="lazy" data-par /></div>
+        <div class="mvv__in">
+          <p class="mvv__label rv">Mission, Vision &amp; Values</p>
+          <h2 class="mvv__title" aria-label="Moral, Modern, Mastery">
+            {['Moral,', 'Modern,', 'Mastery'].map((w, i) => <span class="mvv__line" aria-hidden="true"><span style={`--k:${i}`}>{w}</span></span>)}
+          </h2>
+          <p class="mvv__aim rv">The aim of Al Muna is to create an environment to ensure that education is not only received but also achieved.</p>
+          <div class="mvv__cols">
+            {values.map((v) => (
+              <div class="rv"><h3>{v.k}</h3><p>{v.t}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- notice board -->
+      <section class="notes light">
+        <h2 class="h2 h2--center">On the notice board</h2>
+        <div class="notes__list">
+          {circulars.map((c) => (
+            <a class="notes__row rv" href={`${A}docs/${c.f}`} target="_blank" rel="noopener">
+              <time>{c.d}</time>
+              <span>{c.t}</span>
+              <em>PDF <b aria-hidden="true">&nearr;</b></em>
+            </a>
+          ))}
+        </div>
+      </section>
+
+    </main>
+
+    <!-- closing -->
+    <footer class="close dark">
+      <div class="aura aura--low" aria-hidden="true" data-ripple={`${A}aura-blue.jpg`}><i></i><i></i></div>
+      <div class="close__top">
+        <div class="close__left">
+          <img src={`${A}logo-white.png`} alt="Al Muna International School" width="892" height="240" />
+          <address>
+            18th Street, Al Adamah,<br />Dammam, 31516<br />
+            <a href="tel:+966138266888">+966 13 826 6888</a><br />
+            <a href="mailto:almunaschooldammam@gmail.com">almunaschooldammam@gmail.com</a>
+          </address>
+        </div>
+        <div class="close__right">
+          <h2>Tell us about your child.</h2>
+          <p>Even if you are only exploring schools right now, you can still talk to the school office.</p>
+          <div class="close__btns">
+            <a class="btn btn--light" href={REGISTER_URL} target="_blank" rel="noopener">Register Your Child</a>
+            <a class="btn btn--ghost" href="/contact-us/">Contact Us</a>
+          </div>
+        </div>
+      </div>
+      <div class="close__legal">
+        <span>&copy; {new Date().getFullYear()} Al Muna International School</span>
+        <a href="/mandatory-public-disclosure/">Mandatory Public Disclosure</a>
+        <span>Developed by <a href="https://www.digitalbuddha.in/" target="_blank" rel="noopener">Digitalbuddha Info Solutions LLP</a></span>
+      </div>
+      <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false" set:html={'<filter id="closer-name-outline" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%"><feMorphology in="SourceAlpha" operator="erode" radius="2.5" result="thin"></feMorphology><feComposite in="SourceAlpha" in2="thin" operator="out" result="ring"></feComposite><feComposite in="SourceGraphic" in2="ring" operator="in"></feComposite></filter>'}></svg>
+      <p class="close__mark" aria-hidden="true">{[...'Al Muna'].map((ch) => (ch === ' ' ? ' ' : <span class="ch" data-ch={ch}>{ch}</span>))}</p>
+    </footer>
+
+    <script is:inline>
+      (() => {
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // header: --p runs 0 (top of page: full-width, transparent, monogram) to 1 (compact blurred pill, name)
+        // and follows the scroll position directly, so the change plays forwards and backwards under your finger.
+        // Without script --p stays at its CSS default of 1, i.e. the pill.
+        const header = document.querySelector('.bar');
+        const setP = () => header.style.setProperty('--p', Math.min(1, scrollY / (innerHeight * 0.55)).toFixed(4));
+        addEventListener('scroll', setP, { passive: true });
+        addEventListener('resize', setP);
+        setP();
+
+        // accordion
+        document.querySelectorAll('.faq__item button').forEach((b) => b.addEventListener('click', () => {
+          const open = b.getAttribute('aria-expanded') === 'true';
+          b.setAttribute('aria-expanded', !open);
+          b.parentElement.classList.toggle('is-open', !open);
+        }));
+
+        if (reduce || !('IntersectionObserver' in window)) return;
+
+        // reveal on scroll (classes added here, so without JS everything is simply visible)
+        const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        }), { threshold: 0.12 });
+        // headings: each word slides up out of a mask
+        document.querySelectorAll('.h2, .mvv__title').forEach((h) => {
+          const label = h.getAttribute('aria-label') || h.textContent.trim();
+          h.setAttribute('aria-label', label);
+          if (h.classList.contains('h2')) {
+            h.innerHTML = label.split(/\s+/).map((w, i) => `<span class="w" aria-hidden="true"><i style="--k:${i}">${w}</i></span>`).join(' ');
+          }
+          h.classList.add('split');
+          io.observe(h);
+        });
+        // photos: a curtain lifts off each one as it arrives (own observer: the browser measures the clipped box, so it needs a sliver visible)
+        const curtIo = new IntersectionObserver((en) => en.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); curtIo.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
+        document.querySelectorAll('.intro__photo, .prin__photo, .work__media, .prog__img').forEach((el) => { el.classList.add('curt'); curtIo.observe(el); });
+        // numbers count up
+        const count = (el) => {
+          const to = +el.dataset.count, t0 = performance.now();
+          const step = (now) => {
+            const k = Math.min(1, (now - t0) / 1600);
+            el.textContent = Math.round(to * (1 - Math.pow(1 - k, 4)));
+            if (k < 1) requestAnimationFrame(step);
+          };
+          el.textContent = '0';
+          requestAnimationFrame(step);
+        };
+        document.querySelectorAll('[data-count]').forEach((el) => new IntersectionObserver((en, o) => en.forEach((e) => { if (e.isIntersecting) { count(el); o.disconnect(); } }), { threshold: 0.6 }).observe(el));
+        // life at al muna: one list, one photo that wipes to the next
+        const lifeLi = [...document.querySelectorAll('.life__list li')], lifeImg = [...document.querySelectorAll('.life__stage img')];
+        const stage = document.querySelector('.life__stage'); let cur = 0;
+        const pick = (n) => { if (n === cur) return; cur = n; stage.classList.remove('swap'); void stage.offsetWidth; stage.classList.add('swap'); lifeLi.forEach((li, i) => { li.classList.toggle('is-on', i === n); li.querySelector('button').setAttribute('aria-expanded', i === n); lifeImg[i].classList.toggle('is-on', i === n); }); };
+        lifeLi.forEach((li, n) => {
+          const b = li.querySelector('button');
+          b.addEventListener('click', () => pick(n));
+          if (matchMedia('(hover: hover) and (pointer: fine)').matches) b.addEventListener('mouseenter', () => pick(n));
+        });
+        // programmes: one open at a time
+        const progs = [...document.querySelectorAll('.prog__item')];
+        progs.forEach((it) => it.querySelector('button').addEventListener('click', () => {
+          progs.forEach((o) => { const on = o === it && !o.classList.contains('is-open'); o.classList.toggle('is-open', on); o.querySelector('button').setAttribute('aria-expanded', on); });
+        }));
+        document.querySelectorAll('.rv').forEach((el) => { el.classList.add('rv-on'); io.observe(el); });
+
+        if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+          // ===== 1. Water ripple on the photos and on the banner/footer aura =====
+          // Ported from the reference site's WebGL "fluid" canvas, shaders and settings included. A wave equation is
+          // stepped on a half-resolution height field, the pointer injects waves along its path, and a second pass
+          // refracts the picture through the surface normal with chromatic aberration, plus extra mip-level blur where the
+          // water is disturbed. Only the reference's text soft-focus and top/bottom fade passes are left out.
+          const FLUID = { intensity: 0.24, scale: 0.288, viscosity: 0.5, decay: 0.93, strength: 0.073, aberration: 0.01, blur: 8 };
+          const VS = `#version 300 es
+in vec2 a_pos;
+out vec2 v_uv;
+void main() {
+  v_uv = a_pos * 0.5 + 0.5;
+  gl_Position = vec4(a_pos, 0.0, 1.0);
+}`;
+          const SIM_FS = `#version 300 es
+precision highp float;
+in vec2 v_uv;
+uniform sampler2D u_prev;
+uniform sampler2D u_curr;
+uniform vec2  u_texel;
+uniform float u_viscosity;
+uniform float u_decay;
+uniform vec2  u_pointer;
+uniform vec2  u_prevPointer;
+uniform float u_velocity;
+uniform float u_intensity;
+uniform float u_radius;
+uniform float u_aspect;
+out vec4 fragColor;
+void main() {
+  float c  = texture(u_curr, v_uv).r;
+  float p  = texture(u_prev, v_uv).r;
+  float l  = texture(u_curr, v_uv - vec2(u_texel.x, 0.0)).r;
+  float r  = texture(u_curr, v_uv + vec2(u_texel.x, 0.0)).r;
+  float d  = texture(u_curr, v_uv - vec2(0.0, u_texel.y)).r;
+  float u  = texture(u_curr, v_uv + vec2(0.0, u_texel.y)).r;
+  float avg = (l + r + d + u) * 0.25;
+  float wave = avg * 2.0 - p;
+  wave = mix(c, wave, u_viscosity);
+  wave *= u_decay;
+  if (u_velocity > 0.0001) {
+    vec2 diff = v_uv - u_pointer;
+    diff.x *= u_aspect;
+    float ripple = smoothstep(u_radius, 0.0, length(diff));
+    ripple *= ripple;
+    for (int i = 0; i < 8; i++) {
+      vec2 tp = mix(u_prevPointer, u_pointer, float(i) / 8.0);
+      vec2 td = v_uv - tp;
+      td.x *= u_aspect;
+      float tr = smoothstep(u_radius * 0.7, 0.0, length(td));
+      ripple = max(ripple, tr * tr);
+    }
+    wave += ripple * u_intensity * min(u_velocity * 10.0, 1.0);
+  }
+  fragColor = vec4(clamp(wave, -1.0, 1.0), 0.0, 0.0, 1.0);
+}`;
+          const DRAW_FS = `#version 300 es
+precision highp float;
+in vec2 v_uv;
+uniform sampler2D u_field;
+uniform sampler2D u_image;
+uniform vec2  u_texel;
+uniform vec2  u_cover;
+uniform float u_strength;
+uniform float u_aberration;
+uniform float u_rippleBlur;
+uniform float u_drift;
+out vec4 fragColor;
+const float NORMAL_GAIN = 50.0;
+void main() {
+  float hl = texture(u_field, v_uv - vec2(u_texel.x, 0.0)).r;
+  float hr = texture(u_field, v_uv + vec2(u_texel.x, 0.0)).r;
+  float hb = texture(u_field, v_uv - vec2(0.0, u_texel.y)).r;
+  float ht = texture(u_field, v_uv + vec2(0.0, u_texel.y)).r;
+  vec3 nrm = normalize(vec3((hl - hr) * NORMAL_GAIN, (hb - ht) * NORMAL_GAIN, 1.0));
+  float ndev = length(nrm.xy);
+  vec2 uv = (v_uv - 0.5) * u_cover + 0.5;
+  uv.x += u_drift;
+  uv.y = 1.0 - uv.y;
+  vec2 off = nrm.xy * u_strength;
+  float lod = u_rippleBlur * ndev;
+  vec2 duv = clamp(uv + off, 0.001, 0.999);
+  float ab = u_aberration * (abs(nrm.x) + abs(nrm.y));
+  vec3 col;
+  col.r = textureLod(u_image, duv + vec2(ab, 0.0), lod).r;
+  col.g = textureLod(u_image, duv, lod).g;
+  col.b = textureLod(u_image, duv - vec2(ab, 0.0), lod).b;
+  fragColor = vec4(col, 1.0);
+}`;
+          const compile = (gl, type, src) => {
+            const sh = gl.createShader(type);
+            gl.shaderSource(sh, src);
+            gl.compileShader(sh);
+            if (gl.getShaderParameter(sh, gl.COMPILE_STATUS)) return sh;
+            console.error('[ripple] shader compile failed:', gl.getShaderInfoLog(sh));
+            return null;
+          };
+          const link = (gl, fs) => {
+            const v = compile(gl, gl.VERTEX_SHADER, VS), f = compile(gl, gl.FRAGMENT_SHADER, fs);
+            if (!v || !f) return null;
+            const pr = gl.createProgram();
+            gl.attachShader(pr, v); gl.attachShader(pr, f);
+            gl.bindAttribLocation(pr, 0, 'a_pos');
+            gl.linkProgram(pr);
+            if (gl.getProgramParameter(pr, gl.LINK_STATUS)) return pr;
+            console.error('[ripple] link failed:', gl.getProgramInfoLog(pr));
+            return null;
+          };
+
+          // one shared animation loop for every canvas; each one sleeps when off screen or after ~2.5s without pointer movement
+          const ripples = [];
+          let running = false;
+          const frame = (now) => {
+            let more = false;
+            for (const s of ripples) if (s.run(now)) more = true;
+            running = more;
+            if (more) requestAnimationFrame(frame);
+          };
+          const kick = () => { if (!running) { running = true; requestAnimationFrame(frame); } };
+
+          const makeRipple = (host, src, o) => {
+            const canvas = document.createElement('canvas');
+            canvas.className = 'rip';
+            canvas.setAttribute('aria-hidden', 'true');
+            canvas.style.visibility = 'hidden'; // shown once the first frame is drawn; the plain image is underneath until then
+            host.append(canvas);
+            const s = { host, canvas, ambient: !!o.ambient, vis: false, ready: false, dead: false, idle: 0, px: -10, py: -10, ppx: -10, ppy: -10, run: () => false, start: null };
+            ripples.push(s);
+            let started = false;
+            s.start = () => {
+              if (started) return;
+              started = true;
+              const bail = () => { s.dead = true; canvas.remove(); };
+              const gl = canvas.getContext('webgl2', { alpha: false, antialias: false, premultipliedAlpha: false, depth: false, stencil: false });
+              if (!gl || !gl.getExtension('EXT_color_buffer_float')) return bail(); // needs float render targets; otherwise the plain image stays
+              const sim = link(gl, SIM_FS), draw = link(gl, DRAW_FS);
+              if (!sim || !draw) return bail();
+              gl.bindVertexArray(gl.createVertexArray());
+              gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+              gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+              gl.enableVertexAttribArray(0);
+              gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+              const locs = (pr, names) => Object.fromEntries(names.map((n) => [n, gl.getUniformLocation(pr, 'u_' + n)]));
+              const us = locs(sim, ['prev', 'curr', 'texel', 'viscosity', 'decay', 'pointer', 'prevPointer', 'velocity', 'intensity', 'radius', 'aspect']);
+              const ud = locs(draw, ['field', 'image', 'texel', 'cover', 'strength', 'aberration', 'rippleBlur', 'drift']);
+              gl.useProgram(sim); gl.uniform1i(us.prev, 0); gl.uniform1i(us.curr, 1);
+              gl.useProgram(draw); gl.uniform1i(ud.field, 0); gl.uniform1i(ud.image, 1);
+
+              let W = 1, H = 1, D = 1, I = 1, boxW = 1, boxH = 1, aspect = 16 / 9;
+              const fields = [], fbos = [];
+              const makeField = (i) => {
+                const t = fields[i] || gl.createTexture();
+                fields[i] = t;
+                gl.bindTexture(gl.TEXTURE_2D, t);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, D, I, 0, gl.RED, gl.HALF_FLOAT, null);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                const f = fbos[i] || gl.createFramebuffer();
+                fbos[i] = f;
+                gl.bindFramebuffer(gl.FRAMEBUFFER, f);
+                gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
+                gl.clearColor(0, 0, 0, 1);
+                gl.clear(gl.COLOR_BUFFER_BIT);
+              };
+              const resize = () => {
+                const r = canvas.getBoundingClientRect();
+                boxW = Math.max(1, r.width); boxH = Math.max(1, r.height);
+                const k = Math.min(devicePixelRatio || 1, o.dpr);
+                const w = Math.max(1, Math.round(r.width * k)), h = Math.max(1, Math.round(r.height * k));
+                if (w === W && h === H) return;
+                W = w; H = h;
+                canvas.width = w; canvas.height = h;
+                D = Math.max(2, Math.round(w / 2)); I = Math.max(2, Math.round(h / 2)); // the wave field runs at half resolution
+                makeField(0); makeField(1); makeField(2);
+                s.idle = 0;
+              };
+              resize();
+              new ResizeObserver(() => { resize(); s.idle = 0; kick(); }).observe(canvas);
+
+              const tex = gl.createTexture();
+              const im = new Image();
+              im.decoding = 'async';
+              im.onload = () => {
+                gl.activeTexture(gl.TEXTURE1);
+                gl.bindTexture(gl.TEXTURE_2D, tex);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); // mip levels are what the ripple blur reads
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 0);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
+                gl.generateMipmap(gl.TEXTURE_2D);
+                aspect = im.naturalWidth / im.naturalHeight;
+                s.ready = true; s.idle = 0;
+                kick();
+              };
+              im.src = src;
+
+              let vel = 0, prev = 0, cur = 1, next = 2, shown = false;
+              s.run = (now) => {
+                if (!s.vis || !s.ready || s.dead) return false;
+                if (!s.ambient && s.idle > 150) return false;
+                s.idle++;
+                // 1) wave step into the "next" field
+                gl.useProgram(sim);
+                gl.bindFramebuffer(gl.FRAMEBUFFER, fbos[next]);
+                gl.viewport(0, 0, D, I);
+                gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, fields[prev]);
+                gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, fields[cur]);
+                gl.uniform2f(us.texel, 1 / D, 1 / I);
+                gl.uniform1f(us.viscosity, FLUID.viscosity);
+                gl.uniform1f(us.decay, FLUID.decay);
+                gl.uniform2f(us.pointer, s.px, s.py);
+                gl.uniform2f(us.prevPointer, s.ppx, s.ppy);
+                gl.uniform1f(us.velocity, vel);
+                gl.uniform1f(us.intensity, FLUID.intensity);
+                gl.uniform1f(us.radius, FLUID.scale);
+                gl.uniform1f(us.aspect, W / H);
+                gl.drawArrays(gl.TRIANGLES, 0, 3);
+                vel = s.ppx < -1 ? 0 : Math.hypot(s.px - s.ppx, s.py - s.ppy);
+                s.ppx = s.px; s.ppy = s.py;
+                // 2) show the picture refracted through that field
+                gl.useProgram(draw);
+                gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+                gl.viewport(0, 0, W, H);
+                gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, fields[next]);
+                gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, tex);
+                gl.uniform2f(ud.texel, 1 / D, 1 / I);
+                const box = boxW / boxH;
+                gl.uniform2f(ud.cover, (box > aspect ? 1 : box / aspect) * o.zoom, (box > aspect ? aspect / box : 1) * o.zoom); // object-fit: cover
+                gl.uniform1f(ud.strength, FLUID.strength);
+                gl.uniform1f(ud.aberration, FLUID.aberration);
+                gl.uniform1f(ud.rippleBlur, FLUID.blur);
+                gl.uniform1f(ud.drift, o.ambient ? Math.sin(now / 9000) * 0.04 : 0); // the banner's bands slowly drift sideways
+                gl.drawArrays(gl.TRIANGLES, 0, 3);
+                if (!shown) { shown = true; canvas.style.visibility = ''; host.classList.add('is-gl'); }
+                const t = prev; prev = cur; cur = next; next = t;
+                return true;
+              };
+            };
+            new IntersectionObserver(([e]) => {
+              s.vis = e.isIntersecting;
+              if (s.vis) { s.start(); kick(); }
+            }, { rootMargin: '100% 0px' }).observe(host);
+            return s;
+          };
+
+          document.querySelectorAll('[data-ripple]').forEach((el) => {
+            makeRipple(el, el.dataset.ripple, { dpr: 1.5, zoom: 0.9, ambient: true }); // zoomed in a little so the sideways drift never shows an edge
+          });
+          addEventListener('pointermove', (e) => {
+            for (const s of ripples) {
+              if (!s.vis || s.dead) continue;
+              const r = s.canvas.getBoundingClientRect(), m = r.height * 0.3;
+              if (e.clientX < r.left - m || e.clientX > r.right + m || e.clientY < r.top - m || e.clientY > r.bottom + m) continue;
+              s.px = (e.clientX - r.left) / r.width;
+              s.py = 1 - (e.clientY - r.top) / r.height; // y up, as the shaders expect
+              if (s.ppx < -1) { s.ppx = s.px; s.ppy = s.py; }
+              s.idle = 0;
+            }
+            kick();
+          }, { passive: true });
+          document.documentElement.addEventListener('pointerleave', () => ripples.forEach((s) => { s.px = s.py = s.ppx = s.ppy = -10; }));
+
+          // ===== 2. Closing wordmark: the letters turn to outlines around the pointer =====
+          // Ported from the reference's closing-section name. Two copies of each letter are drawn by CSS (a solid one and an
+          // outlined one, see .close__mark .ch); the pointer position, eased, moves a radial mask that swaps one for the other.
+          const wordmark = document.querySelector('.close__mark');
+          const letters = [...wordmark.querySelectorAll('[data-ch]')];
+          if (letters.length) {
+            let rects = [], tx = 0, ty = 0, cx = 0, cy = 0, inside = false, on = 0, settled = true, raf = 0;
+            const measure = () => {
+              const sx = scrollX, sy = scrollY;
+              rects = letters.map((el) => { const r = el.getBoundingClientRect(); return { x: r.left + sx, y: r.top + sy, w: r.width, h: r.height }; });
+              const fs = parseFloat(getComputedStyle(letters[0]).fontSize) || 0;
+              const m = document.querySelector('#closer-name-outline feMorphology');
+              if (m && fs > 0) m.setAttribute('radius', (0.007 * fs).toFixed(2)); // outline weight follows the type size
+            };
+            const tick = () => {
+              const target = inside ? 1 : 0;
+              on += (target - on) * 0.18; cx += (tx - cx) * 0.1; cy += (ty - cy) * 0.1;
+              const onDone = Math.abs(target - on) < 0.001, posDone = Math.hypot(tx - cx, ty - cy) < 0.4;
+              if (onDone) on = target;
+              if (posDone) { cx = tx; cy = ty; }
+              settled = onDone && posDone;
+              wordmark.style.setProperty('--on', on.toFixed(3));
+              letters.forEach((el, i) => {
+                const r = rects[i];
+                if (r) { el.style.setProperty('--mx', (cx - r.x).toFixed(1) + 'px'); el.style.setProperty('--my', (cy - r.y).toFixed(1) + 'px'); }
+              });
+              raf = 0;
+              if (!settled) raf = requestAnimationFrame(tick);
+            };
+            const wake = () => { settled = false; if (!raf) raf = requestAnimationFrame(tick); };
+            measure();
+            new ResizeObserver(measure).observe(wordmark);
+            addEventListener('pointermove', (e) => {
+              tx = e.clientX + scrollX; ty = e.clientY + scrollY;
+              let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+              for (const r of rects) { x0 = Math.min(x0, r.x); x1 = Math.max(x1, r.x + r.w); y0 = Math.min(y0, r.y); y1 = Math.max(y1, r.y + r.h); }
+              const hit = tx >= x0 && tx <= x1 && ty >= y0 && ty <= y1;
+              if (on <= 0.001) { cx = tx; cy = ty; } // fading in from nothing: start under the pointer instead of sliding in
+              inside = hit;
+              wake();
+            }, { passive: true });
+            document.addEventListener('pointerleave', () => { inside = false; wake(); });
+          }
+
+          // ===== 3. Cursor on the "Life at Al Muna" photos =====
+          // Ported from the reference's work cursor: a label that trails the pointer, blurs with speed, tilts with sideways
+          // speed, and fades and scales in over the photos.
+          const cursor = document.querySelector('.wcur');
+          let px = -200, py = -200, cx = -200, cy = -200, vx = 0, rot = 0, over = false, still = true, seen = false, last = 0, craf = 0;
+          const place = () => { cursor.style.setProperty('--x', cx.toFixed(1) + 'px'); cursor.style.setProperty('--y', cy.toFixed(1) + 'px'); };
+          const setOver = (v) => {
+            if (v === over) return;
+            over = v;
+            if (v) { cx = px; cy = py; place(); cursor.setAttribute('data-on', ''); }
+            else { cursor.removeAttribute('data-on'); cursor.style.filter = ''; }
+          };
+          const check = () => setOver(!!document.elementFromPoint(px, py)?.closest('[data-work-link]'));
+          const follow = () => {
+            const dx = (px - cx) * 0.13, dy = (py - cy) * 0.13;
+            cx += dx; cy += dy;
+            const bl = Math.min(1.6, 0.09 * Math.hypot(dx, dy));
+            cursor.style.filter = bl > 0.12 ? `blur(${bl.toFixed(2)}px)` : '';
+            const dist = Math.abs(px - cx) + Math.abs(py - cy);
+            if (dist < 0.05) { cx = px; cy = py; }
+            place();
+            const target = Math.max(-6, Math.min(6, 7 * (vx *= 0.86)));
+            rot += (target - rot) * 0.16;
+            if (Math.abs(rot) < 0.01 && Math.abs(target) < 0.01 && dist < 0.05) { rot = 0; still = true; }
+            cursor.style.setProperty('--rot', rot.toFixed(2) + 'deg');
+            if (!still) craf = requestAnimationFrame(follow);
+          };
+          document.addEventListener('pointermove', (e) => {
+            const dt = e.timeStamp - last;
+            if (dt > 0 && dt < 100 && seen) vx = (e.clientX - px) / dt;
+            last = e.timeStamp; px = e.clientX; py = e.clientY; seen = true;
+            check();
+            if (still) { still = false; craf = requestAnimationFrame(follow); }
+          }, { passive: true });
+          document.addEventListener('pointerout', (e) => { if (e.relatedTarget === null) setOver(false); }, { passive: true });
+          document.addEventListener('pointerdown', () => over && cursor.setAttribute('data-press', ''), { passive: true });
+          addEventListener('pointerup', () => cursor.removeAttribute('data-press'), { passive: true });
+          addEventListener('scroll', check, { passive: true });
+        }
+
+
+        // intro statement: words switch on as you scroll
+        const fills = [...document.querySelectorAll('[data-fill]')].map((fill) => {
+          const text = fill.textContent.trim();
+          fill.setAttribute('aria-label', text);
+          fill.textContent = '';
+          const words = text.split(/\s+/).map((w) => {
+            const s = document.createElement('span');
+            s.setAttribute('aria-hidden', 'true');
+            s.textContent = w;
+            fill.append(s, ' ');
+            return s;
+          });
+          return { fill, words };
+        });
+        const strip = null;
+        const pars = [...document.querySelectorAll('[data-par]')];
+
+        // oversized titles drift sideways with the scroll; pill menu flips colour over light sections
+        const drifts = [...document.querySelectorAll('[data-drift] span')];
+        const bar = document.querySelector('.bar');
+        const lights = [...document.querySelectorAll('.light')];
+        let queued = false;
+        const onScroll = () => {
+          queued = false;
+          const vh = innerHeight;
+          fills.forEach(({ fill, words }) => {
+            const r = fill.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > vh) return;
+            const k = Math.min(1, Math.max(0, (vh * 0.6 - r.top) / (vh * 0.75)));
+            const upto = Math.round(k * words.length);
+            words.forEach((w, i) => w.classList.toggle('on', i < upto));
+          });
+          // campus strip slides sideways as it crosses the screen; the mission photo drifts slower than the page
+          if (strip) {
+            const b = strip.getBoundingClientRect();
+            if (b.bottom > 0 && b.top < vh) {
+              const t = strip.firstElementChild;
+              const k = Math.min(1, Math.max(0, (vh - b.top) / (vh + b.height)));
+              t.style.transform = `translateX(${(-k * Math.max(0, t.scrollWidth - strip.clientWidth)).toFixed(1)}px)`;
+            }
+          }
+          pars.forEach((im) => {
+            const b = im.parentElement.getBoundingClientRect();
+            if (b.bottom < 0 || b.top > vh) return;
+            im.style.transform = `translateY(${(((b.top + b.height / 2 - vh / 2) / vh) * -14).toFixed(2)}%) scale(1.25)`;
+          });
+          drifts.forEach((d) => {
+            const b = d.parentElement.getBoundingClientRect();
+            if (b.bottom < -200 || b.top > vh + 200) return;
+            d.style.transform = `translateX(${((b.top / vh) * 12 - 6).toFixed(2)}%)`;
+          });
+          bar.classList.toggle('on-light', lights.some((s) => { const b = s.getBoundingClientRect(); return b.top < 44 && b.bottom > 44; }));
+        };
+        addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
+        addEventListener('resize', onScroll);
+        onScroll();
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* Global on purpose: the script creates word spans that would not carry Astro's scope attribute. This page shares no CSS with the others. */
+  :root {
+    --ink: #060a18; /* near-black navy */
+    --navy: #0e204a;
+    --blue: #21418d; /* Al Muna blue */
+    --sky: #7fb0ff;
+    --red: #df3246;
+    --paper: #f4f6fb;
+    --line-d: rgba(255, 255, 255, 0.16);
+    --line-l: rgba(14, 32, 74, 0.16);
+    --pad: clamp(18px, 3vw, 44px);
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ink); color: #fff; font: 400 18px/1.55 'Manrope', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  h1, h2, h3, p, dl, dd { margin: 0; }
+  .skip { position: absolute; left: -999px; }
+  .skip:focus { left: 8px; top: 8px; z-index: 100; background: #fff; color: #000; padding: 8px 12px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
+
+  .dark { background: var(--ink); color: #fff; }
+  .light { background: var(--paper); color: var(--ink); }
+  /* faint column guides, as in the reference */
+  .light, .dark { position: relative; background-image: linear-gradient(90deg, var(--guide) 1px, transparent 1px); background-size: calc((100% - var(--pad) * 2) / 4) 100%; background-position: var(--pad) 0; }
+  .dark { --guide: rgba(255, 255, 255, 0.045); }
+  .light { --guide: rgba(14, 32, 74, 0.055); }
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: 0 var(--pad); }
+
+  /* reveal */
+  .rv-on { opacity: 0; transform: translateY(34px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+  .rv-on.in { opacity: 1; transform: none; }
+
+  /* loader: the real logo fills with colour like ink (0.3s, 1s), lifts away (1.5s), and the white curtain wipes up with a curved edge (1.6s, 0.9s). */
+  .loader { position: fixed; z-index: 90; inset: 0; display: grid; place-items: center; background: #fff; pointer-events: none; animation: loader-wipe 0.9s cubic-bezier(0.76, 0, 0.24, 1) 1.6s forwards; }
+  .loader::after { content: ''; position: absolute; left: -10%; right: -10%; top: 100%; height: 14vh; background: #fff; border-radius: 0 0 50% 50% / 0 0 100% 100%; }
+  .loader b { position: relative; display: block; width: min(74vw, 620px); aspect-ratio: 891 / 240; animation: loader-lift 0.6s cubic-bezier(0.5, 0, 0.75, 0) 1.5s forwards; }
+  .loader img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .loader .ghost { filter: grayscale(1) brightness(1.7) contrast(0.5); opacity: 0; animation: loader-ghost 0.5s ease-out 0.1s forwards; }
+  .loader .fill { clip-path: inset(100% 0 0 0); animation: loader-fill 1s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards; }
+  @keyframes loader-ghost { to { opacity: 0.55; } }
+  @keyframes loader-fill { to { clip-path: inset(0); } }
+  @keyframes loader-lift { to { transform: translateY(-40px); opacity: 0; } }
+  @keyframes loader-wipe { to { transform: translateY(calc(-100% - 16vh)); visibility: hidden; } }
+
+  /* header. Everything below is computed from --p (0 at the top of the page, 1 once scrolled; set by script):
+       width      full bar -> pill
+       --panel    0 for the first half, then ramps to 1: background, blur, border and the solid button arrive late
+       --mono     monogram fades out early;  --word  name fades in late, and the slot widens to fit it */
+  .bar { --p: 1; --pill: 560px; --full: calc(100vw - var(--pad) * 2); --panel: clamp(0, (var(--p) - 0.5) * 2, 1); --mono: clamp(0, (0.6 - var(--p)) * 2.4, 1); --word: clamp(0, (var(--p) - 0.08) * 1.25, 1);
+    position: fixed; z-index: 50; left: 50%; top: calc(26px - 8px * var(--p)); width: min(calc(100vw - 24px), calc(var(--pill) + (var(--full) - var(--pill)) * (1 - var(--p)))); transform: translateX(-50%);
+    display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 6px calc(6px * var(--p)) 6px calc(20px * var(--p)); border-radius: 14px;
+    --tint: 16, 24, 52; --edge: 255, 255, 255; background: rgba(var(--tint), calc(0.55 * var(--panel))); border: 1px solid rgba(var(--edge), calc(0.12 * var(--panel)));
+    -webkit-backdrop-filter: blur(calc(18px * var(--panel))) saturate(calc(1 + 0.4 * var(--panel))); backdrop-filter: blur(calc(18px * var(--panel))) saturate(calc(1 + 0.4 * var(--panel)));
+    color: #fff; font-size: 15px; font-weight: 500; white-space: nowrap; transition: color 0.35s; animation: bar-in 0.9s var(--ease) 2.4s both; }
+  .bar a { text-decoration: none; }
+  /* logo slot: monogram and name share one cell; its width slides from the monogram's to the name's */
+  /* logo slot. The crest alone (top of the page) and the full logo (compact pill) share one cell and cross-fade as --p moves.
+     Both are the same artwork drawn as a mask and tinted with --logo, so one file serves every colour: white on the
+     dark banner and dark pill, brand blue on the white pill over light sections. */
+  .bar { --logo: #fff; }
+  .bar.on-light { --logo: #21418d; }
+  .bar__name { display: grid; align-items: center; justify-items: start; margin-right: auto; width: calc(50px + (123px - 50px) * var(--word)); }
+  /* one logo, not two: the full artwork is drawn once and clipped to the crest at the top of the page. As --word grows the
+     clip opens to the right, so the name unfolds out of the crest while the whole mark settles from 50px to 33px high. */
+  .bar__logo { grid-area: 1 / 1; height: calc(50px - 17px * var(--p)); aspect-ratio: 891 / 240; background-color: var(--logo); transition: background-color 0.35s; -webkit-mask: url(/almuna/logo-white.png) left center / 100% 100% no-repeat; mask: url(/almuna/logo-white.png) left center / 100% 100% no-repeat; clip-path: inset(0 calc((1 - var(--word)) * 73.5%) 0 0); }
+  .bar__links { display: flex; }
+  .bar__links a { padding: 9px 13px; border-radius: 9px; opacity: 0.82; transition: opacity 0.2s, background 0.2s; }
+  .bar__links a:hover { opacity: 1; background: rgba(255, 255, 255, 0.1); }
+  /* button: outlined at the top, filling in as the panel arrives */
+  .bar__cta { --fill: 255, 255, 255; margin-left: 8px; padding: 10px 18px; border-radius: 9px; background: rgba(var(--fill), var(--panel)); color: color-mix(in srgb, var(--cta-ink, var(--ink)) calc(var(--panel) * 100%), #fff); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, calc(0.45 * (1 - var(--panel)))); transition: transform 0.3s var(--ease); }
+  .bar__cta:hover { transform: translateY(-1px); }
+  /* over light sections (always in pill form by then) */
+  .bar.on-light { --tint: 255, 255, 255; --edge: 14, 32, 74; color: var(--ink); }
+  .bar.on-light { background: rgba(var(--tint), calc(0.7 * var(--panel))); }
+  .bar.on-light .bar__links a:hover { background: rgba(14, 32, 74, 0.08); }
+  .bar.on-light .bar__cta { --fill: 33, 65, 141; --cta-ink: #fff; }
+  @keyframes bar-in { from { opacity: 0; transform: translate(-50%, -16px); } }
+
+  /* aura: blurred vertical bands of blue with a red thread, slowly shifting */
+  .aura { position: absolute; inset: 0; overflow: hidden; background: #040714; }
+  .aura i { position: absolute; inset: -12% -30%; filter: blur(34px) saturate(1.5); will-change: transform; }
+  .aura i:first-child { background: repeating-linear-gradient(90deg, #06123a 0 4%, #1740c9 7%, #7fb0ff 9.5%, #0e204a 12%, #091a55 16%, #df3246 18.5%, #3a0d2e 20%, #0b2a8f 24%, #cfe4ff 26.5%, #0e204a 29%, #06123a 33%); animation: aura-a 22s ease-in-out infinite alternate; }
+  .aura i:last-child { background: repeating-linear-gradient(90deg, transparent 0 9%, rgba(127, 176, 255, 0.75) 12%, transparent 15%, rgba(33, 65, 141, 0.9) 21%, transparent 25%, rgba(223, 50, 70, 0.55) 29%, transparent 32%); mix-blend-mode: screen; animation: aura-b 30s ease-in-out infinite alternate; }
+  .aura::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(4, 7, 20, 0.72) 0, rgba(4, 7, 20, 0) 24%, rgba(4, 7, 20, 0.2) 60%, var(--ink) 100%); }
+  @keyframes aura-a { from { transform: translateX(-6%) skewX(-6deg) scaleY(1.05); } to { transform: translateX(8%) skewX(5deg) scaleY(1.15); } }
+  @keyframes aura-b { from { transform: translateX(9%) skewX(8deg); } to { transform: translateX(-9%) skewX(-7deg); } }
+
+  /* water ripple. The canvases are created by script and sit exactly over the photo or aura they refract. */
+  .fx { position: relative; overflow: hidden; }
+  /* photo hover: a slow push-in and a hairline frame that draws itself, the picture itself never distorts */
+  .fx img { transition: transform 1.6s var(--ease); will-change: transform; }
+  .fx::after { content: ''; position: absolute; inset: 14px; border: 1px solid rgba(255, 255, 255, 0.85); border-radius: 2px; opacity: 0; clip-path: inset(0 100% 0 0); pointer-events: none; transition: clip-path 0.9s var(--ease), opacity 0.5s; }
+  .fx::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(6, 10, 24, 0.35), transparent 55%); opacity: 0; pointer-events: none; transition: opacity 0.9s var(--ease); }
+  @media (hover: hover) and (pointer: fine) {
+    .fx:hover img { transform: scale(1.06); }
+    .fx:hover::after { opacity: 1; clip-path: inset(0); }
+    .fx:hover::before { opacity: 1; }
+  }
+  .rip { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+  .aura.is-gl i { display: none; } /* the canvas draws the bands now, so stop animating the CSS ones underneath it */
+
+  /* closing wordmark: each letter is drawn twice (solid and outlined) and a radial mask around the pointer swaps them.
+     --on is set on the wordmark, --mx / --my on each letter, by script. Without script the solid copy simply shows. */
+  .close__mark .ch { --reach-x: 0.7em; --reach-y: 1.6em; --core: 33%; --ink: #fff; --pad: 0.5em; position: relative; display: inline-block; color: transparent; }
+  .close__mark .ch::before, .close__mark .ch::after {
+    content: attr(data-ch); position: absolute; inset-block-start: 0; inset-inline-start: 0; padding-inline-end: 0.06em; white-space: pre; pointer-events: none; color: var(--ink);
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-clip: no-clip; mask-clip: no-clip;
+    -webkit-mask-size: calc(100% + var(--pad) * 2) calc(100% + var(--pad) * 2); mask-size: calc(100% + var(--pad) * 2) calc(100% + var(--pad) * 2);
+    -webkit-mask-position: calc(var(--pad) * -1) calc(var(--pad) * -1); mask-position: calc(var(--pad) * -1) calc(var(--pad) * -1); }
+  .close__mark .ch::before { filter: url(#closer-name-outline);
+    -webkit-mask-image: radial-gradient(ellipse var(--reach-x) var(--reach-y) at calc(var(--mx, 50%) + var(--pad)) calc(var(--my, 50%) + var(--pad)), rgb(0 0 0 / var(--on, 0)) 0%, rgb(0 0 0 / var(--on, 0)) var(--core), #0000 100%);
+    mask-image: radial-gradient(ellipse var(--reach-x) var(--reach-y) at calc(var(--mx, 50%) + var(--pad)) calc(var(--my, 50%) + var(--pad)), rgb(0 0 0 / var(--on, 0)) 0%, rgb(0 0 0 / var(--on, 0)) var(--core), #0000 100%); }
+  .close__mark .ch::after {
+    -webkit-mask-image: radial-gradient(ellipse var(--reach-x) var(--reach-y) at calc(var(--mx, 50%) + var(--pad)) calc(var(--my, 50%) + var(--pad)), rgb(0 0 0 / calc(1 - var(--on, 0))) 0%, rgb(0 0 0 / calc(1 - var(--on, 0))) var(--core), #000 100%);
+    mask-image: radial-gradient(ellipse var(--reach-x) var(--reach-y) at calc(var(--mx, 50%) + var(--pad)) calc(var(--my, 50%) + var(--pad)), rgb(0 0 0 / calc(1 - var(--on, 0))) 0%, rgb(0 0 0 / calc(1 - var(--on, 0))) var(--core), #000 100%); }
+  .defs { position: absolute; width: 0; height: 0; }
+
+  /* cursor over the "Life at Al Muna" photos: trails the pointer, blurs with speed, tilts with sideways speed */
+  .wcur { position: fixed; z-index: 60; inset: 0 auto auto 0; display: inline-flex; align-items: center; gap: 8px; height: 48px; padding-inline: 18px; border-radius: 10px; white-space: nowrap; background: var(--ink); color: #fff; font: 500 18px/1 'Manrope', system-ui, sans-serif; letter-spacing: -0.008em; pointer-events: none;
+    translate: calc(var(--x, -200px) - 50%) calc(var(--y, -200px) - 50%); rotate: var(--rot, 0deg); scale: calc(var(--in, 0.86) * var(--press, 1)); opacity: var(--o, 0); filter: blur(var(--bl, 5px)); will-change: opacity, scale, rotate, filter;
+    transition: opacity 0.2s cubic-bezier(0.2, 0, 0, 1), scale 0.2s cubic-bezier(0.2, 0, 0, 1), filter 0.2s cubic-bezier(0.2, 0, 0, 1); }
+  .wcur[data-on] { --o: 1; --in: 1; --bl: 0px; }
+  .wcur[data-press] { --press: 0.92; }
+  .wcur svg { width: 24px; height: 24px; flex: none; }
+  @media (hover: none), (pointer: coarse) { .wcur { display: none; } }
+
+  /* hero */
+  .hero { min-height: 100svh; display: grid; align-items: end; overflow: hidden; background-image: none; }
+  .hero__inner { position: relative; padding: 0 var(--pad) clamp(28px, 5vh, 56px); }
+  .hero__name { font-weight: 500; letter-spacing: -0.045em; line-height: 0.92; }
+  .hero__line { display: block; font-size: clamp(72px, 15.5vw, 250px); overflow: hidden; padding-bottom: 0.08em; }
+  .hero__line--sm { font-size: clamp(30px, 6.1vw, 98px); letter-spacing: -0.035em; opacity: 0.92; margin-top: 0.1em; }
+  .hero__line span { display: inline-block; transform: translateY(110%); animation: letter 1s var(--ease) both; animation-delay: calc(var(--i) * 32ms + 2150ms); }
+  @keyframes letter { to { transform: none; } }
+  .hero__meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: clamp(28px, 5vh, 60px); padding-top: 18px; border-top: 1px solid var(--line-d); font-size: 16px; animation: fade-up 1s var(--ease) 2.9s both; }
+  .hero__meta dt { font-size: 13px; opacity: 0.6; margin-bottom: 4px; }
+  .hero__meta a { text-decoration-color: rgba(255, 255, 255, 0.4); text-underline-offset: 4px; }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(18px); } }
+
+  /* intro */
+  .intro { padding: clamp(80px, 13vw, 170px) 0; }
+  .intro__photo { grid-column: 1 / span 5; aspect-ratio: 1; border-radius: 4px; }
+  .intro__photo img, .proc__img img { width: 100%; height: 100%; object-fit: cover; }
+  .intro__text { grid-column: 7 / span 6; font-size: clamp(28px, 3.5vw, 54px); font-weight: 500; line-height: 1.14; letter-spacing: -0.03em; }
+  .intro__text span { opacity: 0.22; }
+  .intro__text span.on { opacity: 1; }
+
+  /* statements */
+  .state { padding: clamp(70px, 10vw, 140px) 0; }
+  .state--last { padding-bottom: clamp(90px, 13vw, 180px); }
+  .h2 { grid-column: 1 / span 5; font-size: clamp(32px, 4vw, 60px); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; }
+  .h2--center { text-align: center; padding: 0 var(--pad); margin-bottom: clamp(28px, 4vw, 56px); }
+  .lead { grid-column: 7 / span 6; font-size: clamp(20px, 1.9vw, 28px); line-height: 1.38; letter-spacing: -0.015em; color: rgba(255, 255, 255, 0.55); }
+  .lead b { font-weight: 500; color: #fff; }
+  .light .lead { color: rgba(6, 10, 24, 0.55); }
+  .light .lead b { color: var(--ink); }
+  .lead a { color: var(--blue); text-underline-offset: 4px; }
+
+  /* oversized titles */
+  .mega { overflow: hidden; padding: clamp(60px, 9vw, 130px) 0 clamp(24px, 4vw, 56px); font-size: clamp(64px, 15vw, 240px); font-weight: 500; line-height: 0.95; letter-spacing: -0.05em; white-space: nowrap; }
+  .mega span { display: inline-block; padding: 0 var(--pad); will-change: transform; }
+
+  /* life rows */
+  .work { padding-bottom: clamp(60px, 9vw, 130px); }
+  .work__list { display: grid; gap: clamp(56px, 8vw, 120px); padding: 0 var(--pad); }
+  .work__media { display: block; overflow: hidden; border-radius: 4px; background: #dfe4ee; }
+  .work__media img { width: 100%; aspect-ratio: 16 / 8.2; object-fit: cover; }
+  .work__body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding-top: 22px; align-items: start; }
+  .work__body h3 { grid-column: 1 / span 4; font-size: clamp(26px, 2.8vw, 42px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; }
+  .work__body p { grid-column: 5 / span 5; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.45; color: rgba(6, 10, 24, 0.62); }
+  .work__body dl { grid-column: 10 / span 3; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 16px; }
+  .work__body dt { font-size: 13px; opacity: 0.55; margin-bottom: 2px; }
+  .work__more { padding: clamp(40px, 6vw, 80px) var(--pad) 0; }
+
+  /* buttons */
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 10px; font-size: 16px; font-weight: 500; text-decoration: none; border: 1px solid transparent; transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.3s var(--ease); }
+  .btn span { transition: transform 0.35s var(--ease); }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:hover span { transform: translateX(5px); }
+  .btn--dark { background: var(--ink); color: #fff; }
+  .btn--dark:hover { background: var(--blue); }
+  .btn--light { background: #fff; color: var(--ink); }
+  .btn--light:hover { background: var(--sky); }
+  .btn--ghost { border-color: rgba(255, 255, 255, 0.35); color: #fff; }
+  .btn--ghost:hover { border-color: #fff; background: rgba(255, 255, 255, 0.08); }
+
+  /* admission steps */
+  .proc { padding-bottom: clamp(70px, 10vw, 140px); }
+  .proc__list { padding: 0 var(--pad); }
+  .proc__row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; padding: 30px 0 44px; border-top: 1px solid var(--line-l); }
+  .proc__row h3 { grid-column: 1 / span 5; font-size: clamp(26px, 2.8vw, 42px); font-weight: 500; letter-spacing: -0.03em; }
+  .proc__img { grid-column: 7 / span 2; aspect-ratio: 1; border-radius: 4px; }
+  .proc__row p { grid-column: 9 / span 4; font-size: clamp(18px, 1.55vw, 23px); line-height: 1.4; color: rgba(6, 10, 24, 0.55); }
+  .proc__row p b { font-weight: 500; color: var(--ink); }
+
+  /* numbers */
+  .nums { padding: clamp(70px, 10vw, 140px) var(--pad); }
+  .nums__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line-d); }
+  .nums__grid > div { padding: 26px 20px 0 0; }
+  .nums__grid > div + div { padding-left: 24px; border-left: 1px solid var(--line-d); }
+  .nums strong { display: block; font-size: clamp(54px, 8.2vw, 132px); font-weight: 500; line-height: 1; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+  .nums span { display: block; margin-top: 12px; font-size: 16px; color: rgba(255, 255, 255, 0.6); }
+
+  /* accordion + notice rows */
+  .faq, .notes { padding: clamp(60px, 8vw, 110px) 0; }
+  .faq__list, .notes__list { margin: 0 var(--pad); border-top: 1px solid var(--line-l); }
+  .faq__item { border-bottom: 1px solid var(--line-l); }
+  .faq__item button { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 26px 0; border: 0; background: none; color: inherit; font: 500 clamp(20px, 2vw, 30px)/1.2 'Manrope', sans-serif; letter-spacing: -0.02em; text-align: left; cursor: pointer; }
+  .faq__item i { position: relative; flex: none; width: 22px; height: 22px; }
+  .faq__item i::before, .faq__item i::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: currentColor; transition: transform 0.45s var(--ease); }
+  .faq__item i::after { transform: rotate(90deg); }
+  .faq__item.is-open i::after { transform: rotate(0); }
+  .faq__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.55s var(--ease); }
+  .faq__item.is-open .faq__a { grid-template-rows: 1fr; }
+  .faq__a > div { overflow: hidden; }
+  .faq__a p { max-width: 62ch; padding: 0 0 30px; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.5; color: rgba(6, 10, 24, 0.62); }
+  .notes__row { display: grid; grid-template-columns: 150px 1fr auto; gap: 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line-l); text-decoration: none; transition: padding 0.4s var(--ease), background 0.3s; }
+  .notes__row:hover { padding-left: 16px; padding-right: 16px; background: rgba(33, 65, 141, 0.06); }
+  .notes__row time { font-size: 15px; color: var(--blue); }
+  .notes__row span { font-size: clamp(19px, 1.8vw, 27px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25; }
+  .notes__row em { font-style: normal; font-size: 14px; opacity: 0.6; }
+  .notes__row b { display: inline-block; font-weight: 400; transition: transform 0.3s var(--ease); }
+  .notes__row:hover b { transform: translate(3px, -3px); }
+
+  /* principal */
+  .prin { padding: clamp(70px, 10vw, 140px) 0; }
+  .prin__photo { grid-column: 1 / span 4; aspect-ratio: 4 / 5; border-radius: 4px; }
+  .prin__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .prin__body { grid-column: 6 / span 7; }
+  .prin__label { font-size: 15px; color: var(--sky); margin-bottom: 22px; }
+  .prin__quote { margin: 0; font-size: clamp(26px, 3.1vw, 48px); font-weight: 500; line-height: 1.14; letter-spacing: -0.03em; }
+  .prin__quote span { opacity: 0.22; }
+  .prin__quote span.on { opacity: 1; }
+  .prin__text { margin-top: clamp(24px, 3vw, 40px); max-width: 52ch; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.5; color: rgba(255, 255, 255, 0.6); }
+  .prin__more { margin-top: 28px; }
+
+  /* programmes */
+  .prog { padding: clamp(60px, 8vw, 110px) 0; }
+  .prog__list { margin: 0 var(--pad); border-top: 1px solid var(--line-l); }
+  .prog__item { border-bottom: 1px solid var(--line-l); }
+  .prog__item button { width: 100%; display: grid; grid-template-columns: clamp(48px, 7vw, 110px) 1fr auto; align-items: center; gap: 12px; padding: clamp(22px, 3vw, 40px) 0; border: 0; background: none; color: inherit; cursor: pointer; text-align: left; font: 500 clamp(40px, 7.4vw, 120px)/1 'Manrope', sans-serif; letter-spacing: -0.045em; }
+  .prog__item button em { font-style: normal; font-size: 15px; letter-spacing: 0; color: var(--blue); }
+  .prog__item button span { transition: transform 0.6s var(--ease), color 0.4s; opacity: 0.5; transition: transform 0.6s var(--ease), opacity 0.4s; }
+  .prog__item button:hover span, .prog__item.is-open button span { transform: translateX(14px); opacity: 1; }
+  .prog__item i { position: relative; width: 28px; height: 28px; }
+  .prog__item i::before, .prog__item i::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: currentColor; transition: transform 0.45s var(--ease); }
+  .prog__item i::after { transform: rotate(90deg); }
+  .prog__item.is-open i::after { transform: rotate(0); }
+  .prog__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.7s var(--ease); }
+  .prog__item.is-open .prog__a { grid-template-rows: 1fr; }
+  .prog__in { overflow: hidden; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+  .prog__img { grid-column: 1 / span 5; margin-bottom: 40px; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; }
+  .prog__img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 1.2s var(--ease); }
+  .prog__item.is-open .prog__img img { transform: none; }
+  .prog__copy { grid-column: 7 / span 5; padding-bottom: 40px; }
+  .prog__copy h3 { font-size: clamp(24px, 2.6vw, 38px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; }
+  .prog__copy p { margin: 16px 0 26px; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.5; color: rgba(6, 10, 24, 0.62); }
+
+  /* life at al muna: index on one side, one photo on the other */
+  .work { padding-bottom: clamp(60px, 8vw, 110px); }
+  .life { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: center; padding: 0 var(--pad); }
+  .life__stage { grid-column: 1 / span 6; position: relative; aspect-ratio: 4 / 4.4; border-radius: 4px; overflow: hidden; background: #dfe4ee; }
+  .life__stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; filter: blur(34px) saturate(1.7) brightness(1.18); transform: perspective(1100px) rotateY(-16deg) rotateX(5deg) translateZ(-90px) scale(1.16); transition: opacity 1s var(--ease), filter 1.1s var(--ease), transform 1.3s var(--ease); }
+  .life__stage img.is-on { opacity: 1; filter: none; transform: perspective(1100px); z-index: 1; }
+  /* frosted pane that sweeps across on every change, so the swap reads as glass turning over */
+  .life__stage::after { content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; background: linear-gradient(105deg, rgba(255,255,255,0) 20%, rgba(255,255,255,0.38) 45%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0) 80%) 0 0 / 260% 100%; -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35); }
+  .life__stage.swap::after { animation: glass 1.1s var(--ease); }
+  @keyframes glass { 0% { opacity: 0; background-position: 100% 0; } 30% { opacity: 1; } 100% { opacity: 0; background-position: 0 0; } }
+  .life__stage:hover img.is-on { transform: perspective(1100px) scale(1.04); }
+  .life__list { grid-column: 8 / span 5; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-l); }
+  .life__list li { border-bottom: 1px solid var(--line-l); }
+  .life__list button { width: 100%; display: grid; grid-template-columns: 44px 1fr auto; align-items: baseline; gap: 8px; padding: 22px 0; border: 0; background: none; color: inherit; cursor: pointer; text-align: left; font: 500 clamp(30px, 3.6vw, 56px)/1.05 'Manrope', sans-serif; letter-spacing: -0.04em; }
+  .life__list em { font-style: normal; font-size: 14px; letter-spacing: 0; color: var(--blue); }
+  .life__list span { opacity: 0.38; transition: opacity 0.4s, transform 0.6s var(--ease); }
+  .life__list small { font-size: 14px; letter-spacing: 0; opacity: 0; transition: opacity 0.4s; }
+  .life__list li.is-on span { opacity: 1; transform: translateX(10px); }
+  .life__list li.is-on small { opacity: 0.6; }
+  .life__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.6s var(--ease); }
+  .life__list li.is-on .life__a { grid-template-rows: 1fr; }
+  .life__a > div { overflow: hidden; }
+  .life__a p { padding: 0 0 24px 44px; max-width: 46ch; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.5; color: rgba(6, 10, 24, 0.62); }
+  .work__more { padding-top: clamp(32px, 4vw, 56px); }
+  @media (max-width: 900px) { .life__stage, .life__list { grid-column: 1 / -1; } .life__list { margin-top: 28px; } .life__stage { aspect-ratio: 4 / 3; } }
+
+  /* campus strip */
+  .strip { margin-top: clamp(60px, 9vw, 130px); overflow: hidden; }
+  .strip__track { display: flex; gap: clamp(14px, 2vw, 28px); padding: 0 var(--pad); width: max-content; will-change: transform; }
+  .strip figure { margin: 0; width: clamp(260px, 34vw, 520px); }
+  .strip img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; }
+  .strip figcaption { margin-top: 12px; font-size: 16px; display: flex; justify-content: space-between; }
+
+  /* mission, vision and values */
+  .mvv { position: relative; overflow: hidden; padding: clamp(90px, 13vw, 190px) var(--pad); background-image: none; }
+  .mvv__bg { position: absolute; inset: 0; overflow: hidden; }
+  .mvv__bg img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); will-change: transform; }
+  .mvv__bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, var(--ink) 0, rgba(6, 10, 24, 0.55) 30%, rgba(6, 10, 24, 0.6) 70%, var(--ink) 100%), rgba(14, 32, 74, 0.35); }
+  .mvv__in { position: relative; }
+  .mvv__label { font-size: 15px; color: var(--sky); }
+  .mvv__title { margin: 18px 0 0; font-size: clamp(54px, 12vw, 190px); font-weight: 500; line-height: 0.94; letter-spacing: -0.05em; }
+  .mvv__line { display: block; overflow: hidden; padding-bottom: 0.16em; margin-bottom: -0.1em; }
+  .mvv__line > span { display: inline-block; }
+  .mvv__line:nth-child(2) { padding-left: 1.2em; }
+  .mvv__line:nth-child(3) { padding-left: 0.4em; }
+  .mvv__aim { margin-top: clamp(30px, 4vw, 56px); max-width: 30ch; font-size: clamp(22px, 2.4vw, 36px); line-height: 1.2; letter-spacing: -0.025em; }
+  .mvv__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: clamp(40px, 6vw, 90px); }
+  .mvv__cols > div { padding-top: 18px; border-top: 1px solid var(--line-d); }
+  .mvv__cols h3 { font-size: clamp(22px, 2vw, 30px); font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .mvv__cols p { color: rgba(255, 255, 255, 0.7); max-width: 34ch; }
+
+  /* explore tiles */
+  .explore { padding-bottom: clamp(60px, 9vw, 130px); }
+  .explore__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); padding: 0 var(--pad); }
+  .tile { display: block; text-decoration: none; transition-delay: var(--d, 0ms); }
+  .tile__img { display: block; aspect-ratio: 16 / 10; border-radius: 4px; }
+  .tile__img img { width: 100%; height: 100%; object-fit: cover; }
+  .tile__cap { display: grid; grid-template-columns: 1fr auto; align-items: baseline; padding-top: 16px; }
+  .tile__cap small { grid-column: 1; font-size: 14px; color: var(--sky); }
+  .tile__cap b { grid-column: 1; font-size: clamp(30px, 3.6vw, 56px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.05; transition: transform 0.6s var(--ease); }
+  .tile__cap i { grid-column: 2; grid-row: 1 / span 2; font-style: normal; font-size: clamp(28px, 3vw, 44px); transition: transform 0.5s var(--ease); }
+  .tile:hover .tile__cap b { transform: translateX(10px); }
+  .tile:hover .tile__cap i { transform: translate(6px, -6px); }
+
+  /* motion for the lower sections: word-by-word headings, photo curtains */
+  .split .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+  .split .w > i { display: inline-block; font-style: normal; transform: translateY(108%); transition: transform 1.1s var(--ease); transition-delay: calc(var(--k, 0) * 60ms); }
+  .split.in .w > i { transform: none; }
+  .mvv__line > span { transform: translateY(108%); transition: transform 1.2s var(--ease); transition-delay: calc(var(--k, 0) * 120ms); }
+  .mvv__title.in .mvv__line > span { transform: none; }
+  .curt { clip-path: inset(0 0 99.9% 0); transition: clip-path 1.3s var(--ease); }
+  .curt.in { clip-path: inset(0); }
+  .nums small { display: block; margin-top: 6px; max-width: 24ch; font-size: 14px; line-height: 1.4; color: rgba(255, 255, 255, 0.42); }
+
+  /* closing */
+  .close { position: relative; overflow: hidden; padding-top: clamp(70px, 10vw, 140px); background-image: none; }
+  .aura--low { top: 35%; }
+  .aura--low::after { background: linear-gradient(to bottom, var(--ink) 0, rgba(6, 10, 24, 0.55) 28%, rgba(6, 10, 24, 0.1) 70%, rgba(6, 10, 24, 0.5) 100%); }
+  .close__top { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: 0 var(--pad); }
+  .close__left { grid-column: 1 / span 5; }
+  .close__left img { width: 250px; height: auto; margin-bottom: 26px; }
+  .close address { font-style: normal; font-size: 17px; line-height: 1.7; color: rgba(255, 255, 255, 0.75); }
+  .close address a { text-decoration: none; }
+  .close address a:hover { text-decoration: underline; }
+  .close__right { grid-column: 8 / span 5; }
+  .close__right h2 { font-size: clamp(36px, 4.6vw, 70px); font-weight: 500; line-height: 1.02; letter-spacing: -0.04em; }
+  .close__right p { margin-top: 20px; max-width: 34ch; color: rgba(255, 255, 255, 0.7); }
+  .close__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .close__legal { position: relative; display: flex; gap: 12px 32px; flex-wrap: wrap; margin: clamp(60px, 9vw, 120px) var(--pad) 0; padding-top: 18px; border-top: 1px solid var(--line-d); font-size: 13px; color: rgba(255, 255, 255, 0.7); }
+  .close__legal a { text-underline-offset: 3px; }
+  .close__mark { position: relative; margin: 0; padding: 0 var(--pad); font-size: clamp(90px, 26.5vw, 430px); font-weight: 500; line-height: 0.8; letter-spacing: -0.06em; white-space: nowrap; transform: translateY(0.1em); }
+
+  @media (max-width: 900px) {
+    body { font-size: 17px; }
+    .bar { --pill: 440px; font-size: 14px; top: calc(16px - 4px * var(--p)); }
+    .bar__links a:nth-child(n + 3) { display: none; } /* keep the pill on one line: About, Academics, Register */
+    .hero__meta { grid-template-columns: 1fr; gap: 14px; }
+    .intro__photo, .intro__text, .h2, .lead, .close__left, .close__right { grid-column: 1 / -1; }
+    .intro__text, .lead { margin-top: 28px; }
+    .work__body { row-gap: 12px; }
+    .work__body h3, .work__body p, .work__body dl { grid-column: 1 / -1; }
+    .work__body dl { grid-template-columns: repeat(2, max-content); gap: 28px; }
+    .work__media img { aspect-ratio: 4 / 3; }
+    .proc__row { row-gap: 16px; }
+    .proc__row h3 { grid-column: 1 / -1; }
+    .proc__img { grid-column: 1 / span 4; }
+    .proc__row p { grid-column: 1 / -1; }
+    .nums__grid { grid-template-columns: 1fr 1fr; }
+    .nums__grid > div { padding: 22px 12px 26px 0; }
+    .nums__grid > div + div { padding-left: 0; border-left: 0; }
+    .nums__grid > div:nth-child(even) { padding-left: 18px; border-left: 1px solid var(--line-d); }
+    .nums__grid > div:nth-child(n + 3) { border-top: 1px solid var(--line-d); }
+    .notes__row { grid-template-columns: 1fr; gap: 6px; }
+    .close__right { margin-top: 48px; }
+    .prin__photo, .prin__body, .prog__img, .prog__copy { grid-column: 1 / -1; }
+    .prin__body { margin-top: 32px; }
+    .prog__item button { grid-template-columns: 40px 1fr auto; }
+    .prog__copy { padding-top: 0; }
+    .mvv__cols { grid-template-columns: 1fr; }
+    .mvv__line:nth-child(n) { padding-left: 0; }
+    .explore__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .bar { --pill: 340px; }
+    .bar__links { display: none; } /* phones: just the logo and Register */
+    .bar__name { margin-right: 4px; }
+    .bar__cta { padding: 10px 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .hero__line span { transform: none; }
+    .split .w > i, .mvv__line > span { transform: none; }
+    .curt { clip-path: none; }
+    .loader { display: none; }
+  }
+</style>

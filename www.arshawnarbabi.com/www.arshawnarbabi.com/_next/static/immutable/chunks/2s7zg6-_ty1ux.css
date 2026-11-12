@@ -1,0 +1,57 @@
+.RouteTransition-module__XvASuW__overlay {
+    z-index: 9998;
+    pointer-events: none;
+    position: fixed;
+    inset: 0
+}
+
+.RouteTransition-module__XvASuW__overlay[data-state=idle] {
+    visibility: hidden
+}
+
+.RouteTransition-module__XvASuW__half {
+    background: var(--neutral-1);
+    will-change: transform;
+    position: absolute;
+    inset-inline: 0
+}
+
+.RouteTransition-module__XvASuW__top {
+    height: calc(50% + 1px);
+    inset-block-start: 0
+}
+
+.RouteTransition-module__XvASuW__bottom {
+    height: 50%;
+    inset-block-end: 0
+}
+
+.RouteTransition-module__XvASuW__overlay[data-state=idle] .RouteTransition-module__XvASuW__top,
+.RouteTransition-module__XvASuW__overlay[data-state=opening] .RouteTransition-module__XvASuW__top {
+    transform: translateY(-100%)
+}
+
+.RouteTransition-module__XvASuW__overlay[data-state=idle] .RouteTransition-module__XvASuW__bottom,
+.RouteTransition-module__XvASuW__overlay[data-state=opening] .RouteTransition-module__XvASuW__bottom {
+    transform: translateY(100%)
+}
+
+.RouteTransition-module__XvASuW__overlay[data-state=closing] .RouteTransition-module__XvASuW__half,
+.RouteTransition-module__XvASuW__overlay[data-state=covered] .RouteTransition-module__XvASuW__half {
+    transform: translate(0, 0)
+}
+
+.RouteTransition-module__XvASuW__overlay[data-state=closing] .RouteTransition-module__XvASuW__half {
+    transition: transform .38s cubic-bezier(.76, 0, .24, 1)
+}
+
+.RouteTransition-module__XvASuW__overlay[data-state=opening] .RouteTransition-module__XvASuW__half {
+    transition: transform .62s cubic-bezier(.76, 0, .24, 1)
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .RouteTransition-module__XvASuW__overlay[data-state=closing] .RouteTransition-module__XvASuW__half,
+    .RouteTransition-module__XvASuW__overlay[data-state=opening] .RouteTransition-module__XvASuW__half {
+        transition: none
+    }
+}
