@@ -812,7 +812,13 @@ void main() {
   .bar__name { display: grid; align-items: center; justify-items: start; margin-right: auto; width: calc(50px + (123px - 50px) * var(--word)); }
   /* one logo, not two: the full artwork is drawn once and clipped to the crest at the top of the page. As --word grows the
      clip opens to the right, so the name unfolds out of the crest while the whole mark settles from 50px to 33px high. */
-  .bar__logo { grid-area: 1 / 1; height: calc(50px - 17px * var(--p)); aspect-ratio: 891 / 240; background-color: var(--logo); transition: background-color 0.35s; -webkit-mask: url(/almuna/logo-white.png) left center / 100% 100% no-repeat; mask: url(/almuna/logo-white.png) left center / 100% 100% no-repeat; clip-path: inset(0 calc((1 - var(--word)) * 73.5%) 0 0); }
+  .bar__logo { position: relative; grid-area: 1 / 1; height: calc(50px - 17px * var(--p)); aspect-ratio: 891 / 240; clip-path: inset(0 calc((1 - var(--word)) * 73.5%) 0 0); }
+  /* two skins on the same shape: flat white on dark, the real blue and red logo on the white pill (cross-faded) */
+  .bar__logo::before, .bar__logo::after { content: ''; position: absolute; inset: 0; transition: opacity 0.35s; }
+  .bar__logo::before { background-color: #fff; -webkit-mask: url(/almuna/logo-white.png) left center / 100% 100% no-repeat; mask: url(/almuna/logo-white.png) left center / 100% 100% no-repeat; }
+  .bar__logo::after { background: url(/almuna/logo.png) left center / 100% 100% no-repeat; opacity: 0; }
+  .bar.on-light .bar__logo::before { opacity: 0; }
+  .bar.on-light .bar__logo::after { opacity: 1; }
   .bar__links { display: flex; }
   .bar__links a { padding: 9px 13px; border-radius: 9px; opacity: 0.82; transition: opacity 0.2s, background 0.2s; }
   .bar__links a:hover { opacity: 1; background: rgba(255, 255, 255, 0.1); }
