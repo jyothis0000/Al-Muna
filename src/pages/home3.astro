@@ -831,7 +831,7 @@ void main() {
   /* aura: blurred vertical bands of blue with a red thread, slowly shifting */
   .aura { position: absolute; inset: 0; overflow: hidden; background: #020a1d; }
   .aura i { position: absolute; inset: -12% -30%; filter: blur(34px) saturate(1.5); will-change: transform; }
-  .aura i:first-child { background: repeating-linear-gradient(90deg, #03102c 0 4%, #1550b8 7%, #9fc0ff 9.5%, #00183d 12%, #0a3277 16%, #dba52d 18.5%, #2a1d06 20%, #0b3d91 24%, #fff0c8 26.5%, #00183d 29%, #03102c 33%); animation: aura-a 22s ease-in-out infinite alternate; }
+  .aura i:first-child { background: repeating-linear-gradient(90deg, #03102c 0 4%, #1550b8 7%, #9fc0ff 9.5%, #00183d 12%, #0a3277 16%, #dba52d 18.5%, #2a1d06 20%, #0b3d91 24%, #fff0c8 26.5%, #00183d 29%, #03102c 33%); background-size: 100% 100%; animation: aura-a 22s ease-in-out infinite alternate; }
   .aura i:last-child { background: repeating-linear-gradient(90deg, transparent 0 9%, rgba(159, 192, 255, 0.7) 12%, transparent 15%, rgba(21, 80, 184, 0.9) 21%, transparent 25%, rgba(219, 165, 45, 0.6) 29%, transparent 32%); mix-blend-mode: screen; animation: aura-b 30s ease-in-out infinite alternate; }
   .aura::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(4, 7, 20, 0.72) 0, rgba(4, 7, 20, 0) 24%, rgba(4, 7, 20, 0.2) 60%, var(--ink) 100%); }
   @keyframes aura-a { from { transform: translateX(-6%) skewX(-6deg) scaleY(1.05); } to { transform: translateX(8%) skewX(5deg) scaleY(1.15); } }
