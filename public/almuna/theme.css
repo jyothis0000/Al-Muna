@@ -6,16 +6,16 @@
    the last slide once the header is sticky.
    logo.png is a rebuild (150px crest + redrawn wordmark, 891x240) because the site only had a 200x109 file. */
 :root {
-  --logo-top: 260px;
-  --logo-sticky: 255px;
+  --logo-top: 235px;
+  --logo-sticky: 195px;
 }
 @media (max-width: 1250px) {
   /* narrower desktops: keep the sticky logo clear of the menu */
-  :root { --logo-sticky: 220px; }
+  :root { --logo-sticky: 170px; }
 }
 @media (max-width: 767px) {
   /* phones: keep both logos clear of the menu button */
-  :root { --logo-top: 210px; --logo-sticky: 210px; }
+  :root { --logo-top: 190px; --logo-sticky: 170px; }
 }
 
 #site-header .site-header-block #site-header-logo .cms-gallery-feature {
@@ -39,10 +39,10 @@
 
 /* Sticky bar: logo and menu vertically centred (the template top-aligns a 50px crest in a 60px bar). */
 #site-header.fixed {
-  max-height: none !important; /* template caps the bar at 70px; the larger logo needs ~79px */
+  max-height: none !important; /* template caps the bar at 70px; the logo plus its top and bottom space needs ~90px */
 }
 #site-header.fixed .site-header-block #site-header-logo .cms-gallery-feature {
-  margin: 5px 0 !important;
+  margin: 14px 0 !important;
 }
 #site-header.fixed .site-menu-wrapper {
   top: 50% !important;
@@ -93,7 +93,7 @@
 
 /* ---------- Hero ----------
    hero-top.jpg is the building photo with 130px of space added above it, under a plain navy
-   gradient (#0e204a, same as the bottom fade) baked evenly across the top. No blur.
+   gradient (#00183d, same as the bottom fade) baked evenly across the top. No blur.
    The photo is anchored to its top edge and to the left, so its pale sky sits behind the logo.
    On phones only a narrow slice of the photo fits, so it is shifted to the sky side (10% from the left). */
 .site-hero-banner .site-slider-image {
@@ -106,7 +106,7 @@
 }
 /* The top gradient is in the photo itself, so the template's navy top fade is dropped (bottom fade kept). */
 .site-hero-banner .site-slider-image-block::before {
-  background-image: linear-gradient(to top, rgb(14, 32, 74), rgba(14, 32, 74, 0) 70%) !important;
+  background-image: linear-gradient(to top, rgb(0, 24, 61), rgba(0, 24, 61, 0) 70%) !important;
 }
 /* Banner text (headline and intro paragraph) sits 35px lower than the template's default (bottom: 40px). */
 @media (min-width: 768px) {
@@ -142,7 +142,7 @@
 /* Closing banner above the footer: the template's navy fade from the right stops at 40% of the width,
    short of where the headline starts. It now stays strong behind the text and reaches 70%. */
 .cta-gallery-wrapper .site-slider-image-block::before {
-  background-image: linear-gradient(to left, rgb(14, 32, 74) 0, rgba(14, 32, 74, 0.82) 35%, rgba(14, 32, 74, 0) 70%) !important;
+  background-image: linear-gradient(to left, rgb(0, 24, 61) 0, rgba(0, 24, 61, 0.82) 35%, rgba(0, 24, 61, 0) 70%) !important;
 }
 
 /* ---------- Footer ----------
@@ -150,7 +150,7 @@
    with a navy bar for the copyright line. */
 .am-footer {
   background: #f3f5fa;
-  border-top: 4px solid #21418d;
+  border-top: 4px solid #002458;
   color: #3b4660;
   font-family: Roboto, sans-serif;
   font-size: 15px;
@@ -187,15 +187,15 @@
   letter-spacing: 0.12em;
   line-height: 1.4;
   text-transform: uppercase;
-  color: #0e204a;
+  color: #00183d;
 }
 .am-footer a {
-  color: #21418d;
+  color: #002458;
   text-decoration: none;
 }
 .am-footer a:hover,
 .am-footer a:focus-visible {
-  color: #df3246;
+  color: #c8921a;
   text-decoration: underline;
 }
 .am-footer__col a {
@@ -210,7 +210,7 @@
   border-radius: 6px;
 }
 .am-footer__bar {
-  background: #0e204a;
+  background: #00183d;
   color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
 }
@@ -256,7 +256,18 @@
   .site-hero-banner .site-slider-image-block::before {
     background-color: transparent !important;
     background-image:
-      linear-gradient(to top, rgb(14, 32, 74), rgba(14, 32, 74, 0) 70%),
-      linear-gradient(to bottom, rgba(14, 32, 74, 0) 0, rgba(14, 32, 74, 0.6) 34%) !important;
+      linear-gradient(to top, rgb(0, 24, 61), rgba(0, 24, 61, 0) 70%),
+      linear-gradient(to bottom, rgba(0, 24, 61, 0) 0, rgba(0, 24, 61, 0.6) 34%) !important;
   }
 }
+
+/* Banner Register button: the template's own button, with its hover colours swapped. Gold by default (it shows on the navy fade),
+   navy on hover. */
+.site-slider-more-desc-data a.site-button-primary { background: #c8921a; }
+.site-slider-more-desc-data a.site-button-primary:hover { background: #002458; }
+/* Contact Us button (closing banner): same swap, gold by default and navy on hover. */
+.cta-gallery-wrapper .site-slider-caption a.site-button-primary { background: #c8921a; }
+.cta-gallery-wrapper .site-slider-caption a.site-button-primary:hover { background: #002458; }
+/* Explore Al Muna buttons: same swap, gold by default and navy on hover. */
+.custom-gallery-wrapper .site-slider-caption a.site-button-primary { background: #c8921a; }
+.custom-gallery-wrapper .site-slider-caption a.site-button-primary:hover { background: #002458; }
