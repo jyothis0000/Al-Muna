@@ -131,7 +131,8 @@ const MAP =
     <header class="head">
       <div class="wrap head__row">
         <a href="/home2/" class="head__logo">
-          <img src={`${A}logo-h-white.png`} alt="Al Muna International School" width="751" height="226" />
+          <img class="logo--gold" src={`${A}logo-gold.png`} alt="Al Muna International School" width="995" height="244" />
+          <img class="logo--color" src={`${A}logo-green-gold.png`} alt="" width="995" height="244" aria-hidden="true" />
         </a>
         <nav class="nav" aria-label="Main">
           <ul>
@@ -455,7 +456,7 @@ const MAP =
     <footer class="foot">
       <div class="wrap foot__grid">
         <div>
-          <img class="foot__logo" src={`${A}logo-h-white.png`} alt="Al Muna International School" width="751" height="226" />
+          <img class="foot__logo" src={`${A}logo-gold.png`} alt="Al Muna International School" width="995" height="244" />
           <address>
             18th Street, Al Adamah,<br />
             Dammam, 31516<br />
@@ -591,6 +592,17 @@ const MAP =
           const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
           bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
           head.classList.toggle('is-scrolled', y > 40);
+          // light or dark behind the bar? Look at what sits under it (first thing with a solid background colour)
+          if (y > 40) {
+            const under = document.elementsFromPoint(innerWidth / 2, 40).filter((e) => !head.contains(e));
+            let light = false;
+            for (const e of under) {
+              const cs = getComputedStyle(e), m = cs.backgroundColor.match(/[0-9.]+/g);
+              if (cs.backgroundImage !== 'none' && !cs.backgroundImage.startsWith('url(\"data')) { light = false; break; }
+              if (m && (m[3] === undefined || +m[3] > 0.6)) { light = 0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2] > 170; break; }
+            }
+            head.classList.toggle('on-light', light);
+          } else head.classList.remove('on-light');
           // 'Affiliated to' card: drifts up past the photo as the section scrolls by (slower than the page)
           if (!reduce) {
             const r = statsPhoto.getBoundingClientRect();
@@ -729,9 +741,20 @@ const MAP =
   .head.is-scrolled { padding-top: 12px; }
   .head__row { display: flex; align-items: center; gap: 28px; min-height: var(--head-h); border: 1px solid transparent; border-radius: 0; transition: max-width 0.5s cubic-bezier(0.3, 0.8, 0.2, 1), min-height 0.45s cubic-bezier(0.3, 0.8, 0.2, 1), padding 0.45s cubic-bezier(0.3, 0.8, 0.2, 1), border-radius 0.45s, background 0.35s, border-color 0.35s, box-shadow 0.35s; }
   .head.is-scrolled .head__row { width: calc(100% - 32px); max-width: 1160px; min-height: 66px; padding: 0 12px 0 26px; border-radius: 999px; background: rgba(0, 53, 25, 0.72); -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5); border-color: rgba(255, 255, 255, 0.18); box-shadow: 0 18px 44px rgba(0, 53, 25, 0.28); }
+  .head__logo { position: relative; display: block; }
+  .head__logo .logo--color { position: absolute; left: 0; top: 0; opacity: 0; }
+  .head__logo img { transition: opacity 0.35s, width 0.45s cubic-bezier(0.3, 0.8, 0.2, 1); }
   .head__logo img { width: 230px; height: auto; transition: width 0.45s cubic-bezier(0.3, 0.8, 0.2, 1); }
   .head.is-scrolled .head__logo img { width: 186px; }
   .head.is-scrolled .burger__panel { top: calc(100% + 8px); left: 16px; right: 16px; border-radius: 24px; background: rgba(0, 53, 25, 0.92); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+  /* over light sections the floating bar turns to white glass with dark text, and the full-colour logo fades in */
+  .head.on-light .logo--gold { opacity: 0; }
+  .head.on-light .logo--color { opacity: 1; }
+  .head.is-scrolled.on-light { color: var(--ink); }
+  .head.is-scrolled.on-light .head__row { background: rgba(255, 255, 255, 0.78); border-color: rgba(0, 88, 41, 0.14); box-shadow: 0 18px 44px rgba(0, 53, 25, 0.14); }
+  .head.is-scrolled.on-light .burger__panel { background: rgba(255, 255, 255, 0.94); color: var(--ink); }
+  .head.on-light .nav > ul > li > a:hover, .head.on-light .nav > ul > li:focus-within > a { background: rgba(0, 88, 41, 0.08); }
+  .head.on-light .nav > ul > li > a::after { background: var(--accent); }
   .nav { margin-left: auto; }
   .nav ul { list-style: none; margin: 0; padding: 0; }
   .nav > ul { display: flex; gap: 6px; }
